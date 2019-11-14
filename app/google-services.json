@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1039315697552",
+    "firebase_url": "https://hangryapp-f7405.firebaseio.com",
+    "project_id": "hangryapp-f7405",
+    "storage_bucket": "hangryapp-f7405.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1039315697552:android:45bcef3e5ee5b8e4433d15",
+        "android_client_info": {
+          "package_name": "com.example.hangryapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1039315697552-rt563rc6gv17m4al2oa5g5mifdcegri1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hangryapp",
+            "certificate_hash": "4ebbe839bdb5f8c1649326e5b1ecf699c8a6ff8b"
+          }
+        },
+        {
+          "client_id": "1039315697552-v1fk78v4nf6qt1808njn6321na5h6ps0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCnaTqqQkHBg9UnFwVKcwSNaFWAwqtx44"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1039315697552-v1fk78v4nf6qt1808njn6321na5h6ps0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
