@@ -8,7 +8,6 @@ public class MainActivity extends AppCompatActivity {
 
     //nicole feder push TEST
     //jordyn push test
-    //peter commit test
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
