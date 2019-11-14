@@ -10,7 +10,6 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
-    //Step 1
     EditText editTextEmail, editTextPassword;
     Button buttonLogin, buttonRegister;
 
@@ -20,13 +19,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Step 2
+
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonLogin = findViewById(R.id.buttonLogin);
         buttonRegister = findViewById(R.id.buttonRegister);
 
-        //Step 3
         buttonLogin.setOnClickListener(this);
         buttonRegister.setOnClickListener(this);
     }
