@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1039315697552-576veb1llhrq9a1kpn8gjrm7rr0ntfcg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hangryapp",
+            "certificate_hash": "2247a4603412e6686a47482d6c25ddb3327ebcc3"
+          }
+        },
+        {
           "client_id": "1039315697552-rt563rc6gv17m4al2oa5g5mifdcegri1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
