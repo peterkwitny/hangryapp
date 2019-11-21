@@ -1,3 +1,5 @@
+package com.example.hangryapp;
+
 public class Meal {
 
     public String name, restaurant;
