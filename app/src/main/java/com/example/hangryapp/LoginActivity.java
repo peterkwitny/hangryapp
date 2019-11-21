@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                             String email = user.getEmail();
 
-                            if (email == "addmeal@gmail.com"){
+                            if (email.equalsIgnoreCase("addmeal@gmail.com")){
                                 Intent mainIntent = new Intent(LoginActivity.this, AddFoodActivity.class);
                                 startActivity(mainIntent);
                                 }

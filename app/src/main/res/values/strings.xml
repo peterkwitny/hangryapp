@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">hangryapp</string>
+
+    <string-array name="mealtimes">
+    <item>Breakfast</item>
+    <item>Lunch</item>
+    <item>Dinner</item>
+</string-array>
+
+    <string-array name="cuisines">
+        <item>Chinese</item>
+        <item>American</item>
+        <item>Mediterranean</item>
+        <item>Indian</item>
+        <item>Japanese</item>
+        <item>Thai</item>
+        <item>Mexican</item>
+    </string-array>
+
+
 </resources>
