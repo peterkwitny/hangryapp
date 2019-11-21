@@ -21,7 +21,7 @@ public class AddFoodActivity extends AppCompatActivity implements AdapterView.On
     EditText editTextMenuItem, editTextRestaurantName, editTextPrice;
     String mealTime, cuisine;
     Switch switchVegan, switchVegetarian, switchNutFree, switchGlutenFree, switchDairyFree;
-
+//t
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
