@@ -164,13 +164,14 @@ public class AddFoodActivity extends AppCompatActivity implements AdapterView.On
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference("Meal");
-
+//Sanjeev: There is only one button so the if statement is not necessary
         if (buttonAddMeal == v) {
             String name = editTextMenuItem.getText().toString();
             String restaurant = editTextRestaurantName.getText().toString();
-            String mealTime = mealtime;
-            String cuisine = Cuisine;
+            String mealTime = mealtime;//Sanjeev: mealTime already exists, no need to duplicate
+            String cuisine = Cuisine; //Sanjeev: see above
             String price = editTextPrice.getText().toString();
+//Sanjeev: you are duplicating values below, no need
             boolean vegan = switchVeganChecked;
             boolean glutenFree = switchGlutenFreeChecked;
             boolean vegetarian = switchVegetarianChecked;
