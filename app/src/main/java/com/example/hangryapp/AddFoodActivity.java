@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -15,13 +16,18 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class AddFoodActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     Spinner spinnerMealtimes, spinnerCuisine;
     EditText editTextMenuItem, editTextRestaurantName, editTextPrice;
-    String mealTime, cuisine;
+    String mealtime, Cuisine;
     Switch switchVegan, switchVegetarian, switchNutFree, switchGlutenFree, switchDairyFree;
-//t
+    Boolean switchVeganChecked, switchVegetarianChecked, switchNutFreeChecked, switchGlutenFreeChecked, switchDairyFreeChecked;
+    Button buttonAddMeal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,22 +59,24 @@ public class AddFoodActivity extends AppCompatActivity implements AdapterView.On
         editTextRestaurantName = findViewById(R.id.editTextRestaurantName);
         editTextPrice = findViewById(R.id.editTextPrice);
 
-        switchVegan = (Switch) findViewById(R.id.switchVegan);
+        switchVegan = findViewById(R.id.switchVegan);
         switchVegetarian = findViewById(R.id.switchVegetarian);
         switchNutFree = findViewById(R.id.switchNutFree);
         switchDairyFree = findViewById(R.id.switchDairyFree);
         switchGlutenFree = findViewById(R.id.switchGlutenFree);
 
+        buttonAddMeal.setOnClickListener(this);
 
         switchVegan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
 
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked == true){
-                    Toast.makeText(AddFoodActivity.this, "Vegan Checked", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(AddFoodActivity.this, "Vegan not Checked", Toast.LENGTH_SHORT).show();
+                if (isChecked) {
+                    switchVeganChecked = true;
+                } else {
+                    switchVeganChecked = false;
+
+
                 }
             }
         });
@@ -77,16 +85,57 @@ public class AddFoodActivity extends AppCompatActivity implements AdapterView.On
             @Override
 
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked == true){
-                    Toast.makeText(AddFoodActivity.this, "Vegan Checked", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(AddFoodActivity.this, "Vegan not Checked", Toast.LENGTH_SHORT).show();
+                if (isChecked) {
+                    switchVegetarianChecked = true;
+                } else {
+                    switchVegetarianChecked = false;
+
+
                 }
             }
         });
 
 
+        switchNutFree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    switchNutFreeChecked = true;
+                } else {
+                    switchNutFreeChecked = false;
+
+
+                }
+            }
+        });
+
+
+        switchDairyFree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    switchDairyFreeChecked = true;
+                } else {
+                    switchDairyFreeChecked = false;
+
+                }
+            }
+        });
+
+        switchGlutenFree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    switchGlutenFreeChecked = true;
+                } else {
+                    switchGlutenFreeChecked = false;
+
+                }
+            }
+        });
 
 
     }
@@ -94,12 +143,13 @@ public class AddFoodActivity extends AppCompatActivity implements AdapterView.On
     @Override
     public void onItemSelected(AdapterView<?> spinnerClicked, View view, int position, long l) {
 
-        if(spinnerClicked == spinnerMealtimes) {
-            mealTime = spinnerClicked.getItemAtPosition(position).toString();
+        if (spinnerClicked == spinnerMealtimes) {
+            mealtime = spinnerClicked.getItemAtPosition(position).toString();
 
-        } else if(spinnerClicked == spinnerCuisine) {
+        } else if (spinnerClicked == spinnerCuisine) {
+            Cuisine = spinnerClicked.getItemAtPosition(position).toString();
 
-            cuisine = spinnerClicked.getItemAtPosition(position).toString();
+
         }
 
     }
@@ -110,7 +160,30 @@ public class AddFoodActivity extends AppCompatActivity implements AdapterView.On
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(View v) {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference("Meal");
+
+        if (buttonAddMeal == v) {
+            String name = editTextMenuItem.getText().toString();
+            String restaurant = editTextRestaurantName.getText().toString();
+            String mealTime = mealtime;
+            String cuisine = Cuisine;
+            String price = editTextPrice.getText().toString();
+            boolean vegan = switchVeganChecked;
+            boolean glutenFree = switchGlutenFreeChecked;
+            boolean vegetarian = switchVegetarianChecked;
+            boolean dairyFree = switchDairyFreeChecked;
+            boolean nutFree = switchNutFreeChecked;
+
+            Meal myMeal = new Meal(name, restaurant, mealTime, cuisine, price, vegan, glutenFree, vegetarian, dairyFree, nutFree);
+            myRef.push().setValue(myMeal);
+
+            Toast.makeText(this, "Menu Item Submitted", Toast.LENGTH_SHORT).show();
+        }
+
+
 
     }
 }
