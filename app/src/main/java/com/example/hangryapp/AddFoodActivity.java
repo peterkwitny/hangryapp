@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -23,7 +22,7 @@ public class AddFoodActivity extends AppCompatActivity implements AdapterView.On
 
     Spinner spinnerMealtimes, spinnerCuisine;
     EditText editTextMenuItem, editTextRestaurantName, editTextPrice;
-    String mealtime, Cuisine;
+    String mealtime, cuisine;
     Switch switchVegan, switchVegetarian, switchNutFree, switchGlutenFree, switchDairyFree;
     Boolean switchVeganChecked, switchVegetarianChecked, switchNutFreeChecked, switchGlutenFreeChecked, switchDairyFreeChecked;
     Button buttonAddMeal;
@@ -65,6 +64,7 @@ public class AddFoodActivity extends AppCompatActivity implements AdapterView.On
         switchDairyFree = findViewById(R.id.switchDairyFree);
         switchGlutenFree = findViewById(R.id.switchGlutenFree);
 
+        buttonAddMeal = findViewById(R.id.buttonAddMeal);
         buttonAddMeal.setOnClickListener(this);
 
         switchVegan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -147,7 +147,7 @@ public class AddFoodActivity extends AppCompatActivity implements AdapterView.On
             mealtime = spinnerClicked.getItemAtPosition(position).toString();
 
         } else if (spinnerClicked == spinnerCuisine) {
-            Cuisine = spinnerClicked.getItemAtPosition(position).toString();
+            cuisine = spinnerClicked.getItemAtPosition(position).toString();
 
 
         }
@@ -164,25 +164,22 @@ public class AddFoodActivity extends AppCompatActivity implements AdapterView.On
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference("Meal");
-//Sanjeev: There is only one button so the if statement is not necessary
-        if (buttonAddMeal == v) {
-            String name = editTextMenuItem.getText().toString();
-            String restaurant = editTextRestaurantName.getText().toString();
-            String mealTime = mealtime;//Sanjeev: mealTime already exists, no need to duplicate
-            String cuisine = Cuisine; //Sanjeev: see above
-            String price = editTextPrice.getText().toString();
-//Sanjeev: you are duplicating values below, no need
-            boolean vegan = switchVeganChecked;
-            boolean glutenFree = switchGlutenFreeChecked;
-            boolean vegetarian = switchVegetarianChecked;
-            boolean dairyFree = switchDairyFreeChecked;
-            boolean nutFree = switchNutFreeChecked;
+        String name = editTextMenuItem.getText().toString();
+        String restaurant = editTextRestaurantName.getText().toString();
+        String price = editTextPrice.getText().toString();
+//Sanjeev: you are duplicating values below, no need -->
+// Nicole: Do they need to be the same name as objects in Meal class?
+        boolean vegan = switchVeganChecked;
+        boolean glutenFree = switchGlutenFreeChecked;
+        boolean vegetarian = switchVegetarianChecked;
+        boolean dairyFree = switchDairyFreeChecked;
+        boolean nutFree = switchNutFreeChecked;
 
-            Meal myMeal = new Meal(name, restaurant, mealTime, cuisine, price, vegan, glutenFree, vegetarian, dairyFree, nutFree);
-            myRef.push().setValue(myMeal);
+        Meal myMeal = new Meal(name, restaurant, mealtime, cuisine, price, vegan, glutenFree, vegetarian, dairyFree, nutFree);
+        myRef.push().setValue(myMeal);
 
-            Toast.makeText(this, "Menu Item Submitted", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(this, "Menu Item Submitted", Toast.LENGTH_SHORT).show();
+
 
 
 
