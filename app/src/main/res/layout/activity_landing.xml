@@ -46,21 +46,26 @@
 
     <Button
         android:id="@+id/buttonNope"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="111dp"
+        android:layout_height="35dp"
+        android:background="@drawable/buttonshape"
+        android:backgroundTint="#00FFFFFF"
         android:fontFamily="@font/montserrat"
+
         android:text="No thanks!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.108"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.603" />
 
     <Button
         android:id="@+id/buttonSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="129dp"
+        android:layout_height="37dp"
+        android:background="@drawable/buttonshape"
         android:fontFamily="@font/montserrat"
         android:text="Yum!"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -99,24 +104,15 @@
         android:id="@+id/textViewRestriction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:layout_marginBottom="44dp"
         android:fontFamily="@font/montserrat"
+        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewRating"
-        app:layout_constraintVertical_bias="0.37" />
-
-    <TextView
-        android:id="@+id/textViewRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="TextView"
-        android:fontFamily="@font/montserrat"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonNope"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/buttonListView"
@@ -142,5 +138,51 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/hangrylogo" />
+
+    <TextView
+        android:id="@+id/textViewRestriction2"
+        android:layout_width="66dp"
+        android:layout_height="16dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toEndOf="@+id/textViewRestriction"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPrice"
+        app:layout_constraintVertical_bias="0.578" />
+
+    <TextView
+        android:id="@+id/textViewRestriction3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.087"
+        app:layout_constraintStart_toEndOf="@+id/textViewRestriction2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPrice"
+        app:layout_constraintVertical_bias="0.603" />
+
+    <TextView
+        android:id="@+id/textViewRestriction4"
+        android:layout_width="66dp"
+        android:layout_height="14dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toEndOf="@+id/textViewRestriction3"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPrice"
+        app:layout_constraintVertical_bias="0.586" />
+
+    <TextView
+        android:id="@+id/textViewRestriction5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewRestriction4"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
