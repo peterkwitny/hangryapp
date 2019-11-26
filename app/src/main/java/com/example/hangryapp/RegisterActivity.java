@@ -2,7 +2,10 @@ package com.example.hangryapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +27,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     EditText editTextEmailRegister, editTextRetypeEmailRegister, editTextPasswordRegister,
             editTextRetypePasswordRegister;
     Button buttonRegisterUser;
-    CheckBox checkBoxReadTerms;
 
     private FirebaseAuth mAuth;
 
@@ -32,6 +34,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        ConstraintLayout constraintLayout = findViewById(R.id.layout);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();
 
         textViewSignUp = findViewById(R.id.textViewSignUp);
         textViewEmailRegister = findViewById(R.id.textViewEmailRegister);
@@ -69,6 +77,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             if (task.isSuccessful()) {
                                 //Display success message
                                 Toast.makeText(RegisterActivity.this, "User Registration Successful", Toast.LENGTH_SHORT).show();
+                               // if (){
+                                   // Intent mainIntent = new Intent(RegisterActivity.this, PreferenceActivity.class);
+                                    //startActivity(mainIntent);
+                              //  };
 
 
 
