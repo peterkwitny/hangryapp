@@ -1,11 +1,14 @@
 package com.example.hangryapp;
 
+import android.widget.ImageView;
+
 public class Meal {
 
     public String name, restaurant;
     public String mealtime, cuisine;
     public String price;
     public boolean vegan, glutenFree, vegetarian, dairyFree, nutFree;
+    //public ImageView image;
 
     public Meal() {
     }

@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,16 +22,22 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class LandingActivity extends AppCompatActivity implements View.OnClickListener{
     TextView textViewFoodName,textViewRestaurant,textViewPrice, textViewRestriction, textViewRestriction2, textViewRestriction3, textViewRestriction4, textViewRestriction5;
     Button buttonNope, buttonSave, buttonFilter, buttonListView;
     ImageView imageViewFood;
+    int currentDisplay;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StorageReference mStorageRef;
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+
         setContentView(R.layout.activity_landing);
 
         textViewFoodName = findViewById(R.id.textViewFoodName);
@@ -47,14 +54,25 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         buttonListView = findViewById(R.id.buttonListView);
         imageViewFood = findViewById(R.id.imageViewFood);
 
+        buttonListView.setOnClickListener(this);
+        buttonSave.setOnClickListener(this);
+        buttonFilter.setOnClickListener(this);
+        buttonNope.setOnClickListener(this);
+
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference("Meal");
 
 
-        myRef.orderByKey().addChildEventListener(new ChildEventListener() {
+        myRef.orderByKey().limitToLast(1).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+
+
+                currentDisplay = 1;
+
                 Meal foundMeal = dataSnapshot.getValue(Meal.class);
+
                 String findName = foundMeal.name;
                 String findRestaurant = foundMeal.restaurant;
                 String findPrice = foundMeal.price;
@@ -63,6 +81,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 Boolean findGF = foundMeal.glutenFree;
                 Boolean findDF = foundMeal.dairyFree;
                 Boolean findNF = foundMeal.nutFree;
+
 
                 textViewFoodName.setText(findName);
                 textViewRestaurant.setText(findRestaurant);
@@ -138,14 +157,141 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference("Meal");
 
+        
+
+
         if(view == buttonFilter){
             Intent intent = new Intent(this, FilterActivity.class);
             startActivity(intent);
         } else if( view == buttonSave){
+            currentDisplay = currentDisplay + 1;
+            myRef.orderByKey().limitToLast(currentDisplay).addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
 
+
+                   Meal currentMeal = dataSnapshot.getValue(Meal.class);
+
+
+                    String findName = currentMeal.name;
+                    String findRestaurant = currentMeal.restaurant;
+                    String findPrice = currentMeal.price;
+                    Boolean findVegan = currentMeal.vegan;
+                    Boolean findVegetarian = currentMeal.vegetarian;
+                    Boolean findGF = currentMeal.glutenFree;
+                    Boolean findDF = currentMeal.dairyFree;
+                    Boolean findNF = currentMeal.nutFree;
+
+
+                    textViewFoodName.setText(findName);
+                    textViewRestaurant.setText(findRestaurant);
+                    textViewPrice.setText(findPrice);
+                    if (findVegan == true) {
+                        textViewRestriction.setText("Vegan");
+                    }
+                    if (findVegetarian == true) {
+                        textViewRestriction2.setText("Vegetarian");
+                    }
+                    if (findGF == true) {
+                        textViewRestriction3.setText("Gluten Free");
+                    }
+                    if (findDF == true) {
+                        textViewRestriction4.setText("Dairy Free");
+                    }
+                    if (findNF == true) {
+                        textViewRestriction5.setText("Nut Free");
+                    }
+
+                    Toast.makeText(LandingActivity.this, dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
+                }
+
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
         } else if(view == buttonNope){
+            currentDisplay = currentDisplay + 1;
+            myRef.orderByKey().limitToLast(currentDisplay).addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+
+
+                    Meal currentMeal = dataSnapshot.getValue(Meal.class);
+
+
+                    String findName = currentMeal.name;
+                    String findRestaurant = currentMeal.restaurant;
+                    String findPrice = currentMeal.price;
+                    Boolean findVegan = currentMeal.vegan;
+                    Boolean findVegetarian = currentMeal.vegetarian;
+                    Boolean findGF = currentMeal.glutenFree;
+                    Boolean findDF = currentMeal.dairyFree;
+                    Boolean findNF = currentMeal.nutFree;
+
+
+                    textViewFoodName.setText(findName);
+                    textViewRestaurant.setText(findRestaurant);
+                    textViewPrice.setText(findPrice);
+                    if (findVegan == true) {
+                        textViewRestriction.setText("Vegan");
+                    }
+                    if (findVegetarian == true) {
+                        textViewRestriction2.setText("Vegetarian");
+                    }
+                    if (findGF == true) {
+                        textViewRestriction3.setText("Gluten Free");
+                    }
+                    if (findDF == true) {
+                        textViewRestriction4.setText("Dairy Free");
+                    }
+                    if (findNF == true) {
+                        textViewRestriction5.setText("Nut Free");
+                    }
+
+                    Toast.makeText(LandingActivity.this, dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
+                }
+
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
         }else if(view == buttonListView){
             Intent intent = new Intent(this, ListActivity.class);
