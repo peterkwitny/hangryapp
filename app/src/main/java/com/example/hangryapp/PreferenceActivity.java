@@ -18,11 +18,11 @@ public class PreferenceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preference);
 
-        ConstraintLayout constraintLayout = findViewById(R.id.layout);
+       /* ConstraintLayout constraintLayout = findViewById(R.id.layout);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
+        animationDrawable.start();*/
 
 
     }
