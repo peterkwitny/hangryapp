@@ -2,14 +2,17 @@ public class Search {
 
     public String cuisines;
 
-    public Search(String cuisines) {
+    public Search() {
 
-        this.cuisines = cuisines;
+
+    }
+
+
+    public Search(String cuisineName) {
+
+        this.cuisines = cuisineName;
 
     }
 
 
 }
-
-
-

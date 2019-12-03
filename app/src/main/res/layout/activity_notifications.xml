@@ -13,7 +13,6 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="24dp"
         android:text="Notifications"
-        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,7 +23,6 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="16dp"
         android:text="Reminders: remind rate"
-        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNotifications" />
 
@@ -35,7 +33,6 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="16dp"
         android:text="Push Notifications:"
-        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewReminder" />
 
@@ -43,10 +40,9 @@
         android:id="@+id/textViewFoodInspiration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="60dp"
         android:text="Food Inspiration:"
-        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPushNotificationOnOff" />
 
@@ -57,7 +53,6 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="16dp"
         android:text="Push Notifications:"
-        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewFoodInspiration" />
 
@@ -66,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="51dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="90dp"
         app:layout_constraintStart_toEndOf="@+id/textViewPushNotificationOnOff"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="49dp"
-        android:layout_marginTop="93dp"
+        android:layout_marginTop="90dp"
         app:layout_constraintStart_toEndOf="@+id/textViewPushNotificationFoodInspo"
         app:layout_constraintTop_toBottomOf="@+id/switchReminderPushNotification" />
 
@@ -84,7 +79,7 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="57dp"
         app:layout_constraintStart_toEndOf="@+id/textViewReminder"
         app:layout_constraintTop_toTopOf="parent" />
 
