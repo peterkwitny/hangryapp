@@ -5,8 +5,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.Switch;
 
 public class PreferenceActivity extends AppCompatActivity {
+
+    Switch switchVeganUser, switchGlutenFreeUser, switchVegetarianUser, switchDairyFreeUser, switchNutFreeUser;
+    Button buttonAddPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,5 +23,7 @@ public class PreferenceActivity extends AppCompatActivity {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
+
+
     }
 }

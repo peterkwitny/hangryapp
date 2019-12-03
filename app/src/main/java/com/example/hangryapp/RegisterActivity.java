@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
-//import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,12 +35,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-       /* ConstraintLayout constraintLayout = findViewById(R.id.layout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
-*/
+
         textViewSignUp = findViewById(R.id.textViewSignUp);
         textViewEmailRegister = findViewById(R.id.textViewEmailRegister);
         textViewRetypeEmailRegister = findViewById(R.id.textViewRetypeEmailRegister);
@@ -65,35 +60,30 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String passwordRegister = editTextPasswordRegister.getText().toString();
         String retypePasswordRegister = editTextRetypePasswordRegister.getText().toString();
 
-        if (buttonRegisterUser == v) {
-            //Toast.makeText(this, "User Registration", Toast.LENGTH_SHORT).show();
+        if (buttonRegisterUser == v && emailRegister.equalsIgnoreCase(retypeEmailRegister) && passwordRegister.equals(retypePasswordRegister)) {
 
             makeNewUsers(emailRegister, passwordRegister);
-           /* Intent mainIntent = new Intent(RegisterActivity.this, PreferenceActivity.class);
-            startActivity(mainIntent);
-*/
-
-            /* // if (emailRegister.equalsIgnoreCase(retypeEmailRegister) && passwordRegister.equals(retypePasswordRegister)) {
-            //allow log in
-            makeNewUsers(emailRegister, passwordRegister);
 
 
-              } else {
-                //can't log in
-                editTextRetypeEmailRegister.setError("Values need to match");
-                editTextRetypePasswordRegister.setError("Values need to match");
 
-            }*/
+        } else {
+            Toast.makeText(RegisterActivity.this, "User Registration Failed, check to confirm that information matches", Toast.LENGTH_SHORT).show();
+
         }
     }
+
+
 
     public void makeNewUsers(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
                         if (task.isSuccessful()) {
                             Toast.makeText(RegisterActivity.this, "User Registration Successful", Toast.LENGTH_SHORT).show();
+                            Intent mainIntent = new Intent(RegisterActivity.this, PreferenceActivity.class);
+                            startActivity(mainIntent);
 
                         } else {
                             // If sign in fails, display a message to the user.
