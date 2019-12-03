@@ -4,6 +4,113 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_list"
     tools:context=".PreferenceActivity">
 
+    <Switch
+        android:id="@+id/switchVeganUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="100dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Vegan"
+        app:layout_constraintEnd_toEndOf="@+id/textViewDietary"
+        app:layout_constraintStart_toStartOf="@+id/textViewDietary"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDietary" />
+
+    <TextView
+        android:id="@+id/textViewWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="100dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Quick profile set up"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewDietary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="100dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Dietary Preferences"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textViewWelcome"
+        app:layout_constraintStart_toStartOf="@+id/textViewWelcome"
+        app:layout_constraintTop_toBottomOf="@+id/textViewWelcome" />
+
+    <Switch
+        android:id="@+id/switchGlutenFreeUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="100dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Gluten Free"
+        app:layout_constraintEnd_toEndOf="@+id/switchVeganUser"
+        app:layout_constraintStart_toStartOf="@+id/switchVeganUser"
+        app:layout_constraintTop_toBottomOf="@+id/switchVeganUser" />
+
+    <Switch
+        android:id="@+id/switchVegetarianUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="100dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Vegetarian"
+        app:layout_constraintEnd_toEndOf="@+id/switchGlutenFreeUser"
+        app:layout_constraintStart_toStartOf="@+id/switchGlutenFreeUser"
+        app:layout_constraintTop_toBottomOf="@+id/switchGlutenFreeUser" />
+
+    <Switch
+        android:id="@+id/switchDairyFreeUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Dairy Free"
+        app:layout_constraintEnd_toEndOf="@+id/switchVegetarianUser"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/switchVegetarianUser"
+        app:layout_constraintTop_toBottomOf="@+id/switchVegetarianUser" />
+
+    <Switch
+        android:id="@+id/switchNutFreeUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Nut Free"
+        app:layout_constraintEnd_toEndOf="@+id/switchDairyFreeUser"
+        app:layout_constraintStart_toStartOf="@+id/switchDairyFreeUser"
+        app:layout_constraintTop_toBottomOf="@+id/switchDairyFreeUser" />
+
+    <Button
+        android:id="@+id/buttonAddPreferences"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="126dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="121dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Add Preferences"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchNutFreeUser" />
 </androidx.constraintlayout.widget.ConstraintLayout>

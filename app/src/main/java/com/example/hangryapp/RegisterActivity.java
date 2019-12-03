@@ -75,16 +75,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
                             if (task.isSuccessful()) {
-                                //Display success message
-                                Toast.makeText(RegisterActivity.this, "User Registration Successful", Toast.LENGTH_SHORT).show();
-                               // if (){
-                                   // Intent mainIntent = new Intent(RegisterActivity.this, PreferenceActivity.class);
-                                    //startActivity(mainIntent);
-                              //  };
+                                    Intent mainIntent = new Intent(RegisterActivity.this, PreferenceActivity.class);
+                                    startActivity(mainIntent);
+                                }
 
 
 
-                            } else {
+                            else {
                                 // If sign in fails, display a message to the user.
                                 Toast.makeText(RegisterActivity.this, "User Registration Failed", Toast.LENGTH_SHORT).show();
 

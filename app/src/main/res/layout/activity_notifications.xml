@@ -80,7 +80,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
         android:layout_marginTop="57dp"
-        android:entries="1x per wk"
         app:layout_constraintStart_toEndOf="@+id/textViewReminder"
         app:layout_constraintTop_toTopOf="parent" />
 
