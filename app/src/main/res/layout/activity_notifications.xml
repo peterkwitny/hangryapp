@@ -80,6 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
         android:layout_marginTop="57dp"
+        android:spinnerMode="dropdown"
         app:layout_constraintStart_toEndOf="@+id/textViewReminder"
         app:layout_constraintTop_toTopOf="parent" />
 
