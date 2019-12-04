@@ -24,7 +24,11 @@ public class AddFoodActivity extends AppCompatActivity implements AdapterView.On
     EditText editTextMenuItem, editTextRestaurantName, editTextPrice;
     String mealtime, cuisine;
     Switch switchVegan, switchVegetarian, switchNutFree, switchGlutenFree, switchDairyFree;
-    Boolean switchVeganChecked, switchVegetarianChecked, switchNutFreeChecked, switchGlutenFreeChecked, switchDairyFreeChecked;
+    Boolean switchVeganChecked = false;
+    Boolean switchVegetarianChecked = false;
+    Boolean switchNutFreeChecked = false;
+    Boolean switchGlutenFreeChecked = false;
+    Boolean switchDairyFreeChecked = false;
     Button buttonAddMeal;
 
     @Override
@@ -76,7 +80,6 @@ public class AddFoodActivity extends AppCompatActivity implements AdapterView.On
                 } else {
                     switchVeganChecked = false;
 
-
                 }
             }
         });
@@ -89,7 +92,6 @@ public class AddFoodActivity extends AppCompatActivity implements AdapterView.On
                     switchVegetarianChecked = true;
                 } else {
                     switchVegetarianChecked = false;
-
 
                 }
             }
@@ -104,7 +106,6 @@ public class AddFoodActivity extends AppCompatActivity implements AdapterView.On
                     switchNutFreeChecked = true;
                 } else {
                     switchNutFreeChecked = false;
-
 
                 }
             }
@@ -149,7 +150,6 @@ public class AddFoodActivity extends AppCompatActivity implements AdapterView.On
         } else if (spinnerClicked == spinnerCuisine) {
             cuisine = spinnerClicked.getItemAtPosition(position).toString();
 
-
         }
 
     }
@@ -167,21 +167,15 @@ public class AddFoodActivity extends AppCompatActivity implements AdapterView.On
         String name = editTextMenuItem.getText().toString();
         String restaurant = editTextRestaurantName.getText().toString();
         String price = editTextPrice.getText().toString();
-//Sanjeev: you are duplicating values below, no need -->
-// Nicole: Do they need to be the same name as objects in Meal class?
-        boolean vegan = switchVeganChecked;
-        boolean glutenFree = switchGlutenFreeChecked;
-        boolean vegetarian = switchVegetarianChecked;
-        boolean dairyFree = switchDairyFreeChecked;
-        boolean nutFree = switchNutFreeChecked;
 
-        Meal myMeal = new Meal(name, restaurant, mealtime, cuisine, price, vegan, glutenFree, vegetarian, dairyFree, nutFree);
-        myRef.push().setValue(myMeal);
+        if (buttonAddMeal == v) {
 
-        Toast.makeText(this, "Menu Item Submitted", Toast.LENGTH_SHORT).show();
+            Meal myMeal = new Meal(name, restaurant, mealtime, cuisine, price, switchVeganChecked, switchGlutenFreeChecked, switchVegetarianChecked, switchDairyFreeChecked, switchNutFreeChecked);
+            myRef.push().setValue(myMeal);
 
+            Toast.makeText(this, "Menu Item Submitted", Toast.LENGTH_SHORT).show();
 
-
+        }
 
     }
 }
