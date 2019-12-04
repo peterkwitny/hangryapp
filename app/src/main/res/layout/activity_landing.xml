@@ -14,8 +14,9 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
         android:text="TextView"
-        android:textColor="#00FFFFFF"
-        android:textSize="18sp"
+        android:textColor="#F3EEEE"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +29,9 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
         android:text="TextView"
-        android:textColor="white"
+        android:textColor="#F3EEEE"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,13 +42,17 @@
         android:id="@+id/textViewPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:fontFamily="@font/montserrat"
+        android:text="TextView"
+        android:textColor="#F3EEEE"
+        android:textSize="14sp"
+        android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewRestaurant"
-        app:layout_constraintVertical_bias="0.279" />
+        app:layout_constraintVertical_bias="0.081" />
 
     <Button
         android:id="@+id/buttonNope"
@@ -69,9 +76,9 @@
         android:layout_width="129dp"
         android:layout_height="37dp"
         android:background="@drawable/buttonshape"
+        android:backgroundTint="#00FFFFFF"
         android:fontFamily="@font/montserrat"
         android:text="Yum!"
-        android:backgroundTint="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.819"
@@ -108,22 +115,20 @@
         android:id="@+id/textViewRestriction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
         android:fontFamily="@font/montserrat"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonNope"
-        app:layout_constraintVertical_bias="0.858" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />
 
     <Button
         android:id="@+id/buttonListView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="List view"
         android:fontFamily="@font/montserrat"
+        android:text="List view"
         app:layout_constraintBottom_toTopOf="@+id/imageViewFood"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -150,10 +155,9 @@
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toEndOf="@+id/textViewRestriction"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPrice"
-        app:layout_constraintVertical_bias="0.315" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />
 
     <TextView
         android:id="@+id/textViewRestriction3"
@@ -162,10 +166,9 @@
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.087"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textViewRestriction2"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPrice"
-        app:layout_constraintVertical_bias="0.297" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />
 
     <TextView
         android:id="@+id/textViewRestriction4"
@@ -176,8 +179,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.16"
         app:layout_constraintStart_toEndOf="@+id/textViewRestriction3"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPrice"
-        app:layout_constraintVertical_bias="0.586" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />
 
     <TextView
         android:id="@+id/textViewRestriction5"
@@ -186,6 +188,7 @@
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.44"
         app:layout_constraintStart_toEndOf="@+id/textViewRestriction4"
         app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />
 
