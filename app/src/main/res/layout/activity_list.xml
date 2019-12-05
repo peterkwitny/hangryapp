@@ -26,9 +26,6 @@
         tools:layout_editor_absoluteX="106dp"
         tools:layout_editor_absoluteY="261dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 
 </RelativeLayout>

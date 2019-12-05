@@ -6,6 +6,7 @@ public class Meal {
     public String mealtime, cuisine;
     public String price;
     public boolean vegan, glutenFree, vegetarian, dairyFree, nutFree;
+    public String imageUri;
 
     public Meal() {
     }
@@ -21,5 +22,6 @@ public class Meal {
         this.vegetarian = vegetarian;
         this.dairyFree = dairyFree;
         this.nutFree = nutFree;
+        this.imageUri = imageUri;
     }
 }
