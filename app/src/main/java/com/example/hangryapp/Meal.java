@@ -1,12 +1,16 @@
 package com.example.hangryapp;
 
+import java.io.File;
+import java.io.IOException;
+
 public class Meal {
 
     public String name, restaurant;
     public String mealtime, cuisine;
     public String price;
     public boolean vegan, glutenFree, vegetarian, dairyFree, nutFree;
-    public String imageUri;
+    public String foodName;
+    public File foodPic;
 
     public Meal() {
     }
@@ -22,6 +26,12 @@ public class Meal {
         this.vegetarian = vegetarian;
         this.dairyFree = dairyFree;
         this.nutFree = nutFree;
-        this.imageUri = imageUri;
+        this.foodName = "Food Picture/" + foodName + ".jpg"; //Depend on what we call our folder in storage
+
+        try {
+            foodPic = File.createTempFile(foodName, "jpg");
+        } catch (IOException e) {
+
+        }
     }
 }

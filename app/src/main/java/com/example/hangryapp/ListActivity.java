@@ -34,11 +34,15 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         foodItem = new ArrayList<>();
-        initRecyclerView();
+
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerViewAdapter = new RecyclerViewAdapter(foodItem, this);
+        recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         getFoodItem();
 
     buttonSwipeView = findViewById(R.id.buttonSwipeView);
-
     buttonSwipeView.setOnClickListener(this);
 
     }
@@ -47,6 +51,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference contextRef = database.getReference("Meal");
+
         contextRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -67,19 +72,6 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
-
-    private void initRecyclerView(){
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        recyclerViewAdapter = new RecyclerViewAdapter(foodItem, this);
-        recyclerView.setAdapter(recyclerViewAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
-
-    final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final DatabaseReference myRef = database.getReference("Meal");
-
-
-
 
 
     @Override

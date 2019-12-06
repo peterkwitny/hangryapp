@@ -58,43 +58,41 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.textViewRestaurant.setText(foodItem.get(position).restaurant);
         holder.textViewPrice.setText(foodItem.get(position).price);
 
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+        final File localFile = foodItem.get(position).foodPic;
+
+        StorageReference foodRef = mStorageRef.child(foodItem.get(position).foodName);
+
+        foodRef.getFile(localFile)  //access file from firebase
+                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        // Successfully downloaded data to local file
+                        // ...
+                        try{ //see if this works without an exception
+
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), Uri.fromFile(localFile)); //turn it into an image
+
+                            holder.imageViewFood.setImageBitmap(bitmap); //Setting the imageview in user_item.xml to the picture obtained
+
+                        }
+
+                        catch(IOException e){ //Catching some exception, making it so it doesn't just crash your app
+
+
+
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(mContext, foodItem.get(position).restaurant, Toast.LENGTH_SHORT).show();
+            public void onFailure(@NonNull Exception exception) {
+                // Handle failed download
+                // ...
+                Toast.makeText(mContext, exception.toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
-        try {
-            final File localFile = File.createTempFile("images", "jpg");
-            StorageReference mealPicRef = mStorageRef.child(foodItem.get(position).imageUri); //need to create String imageUri
-            mealPicRef.getFile(localFile)
-                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            // Successfully downloaded data to local file
-                            // ...
-                            try {
-                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), Uri.fromFile(localFile));
-                                holder.imageViewFood.setImageBitmap(bitmap);
-                            }   catch (IOException exc){
-
-                            }
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle failed download
-                    // ...
-                }
-            });
-        } catch (IOException exc){
-
-        }
-
-
-
     }
+
 
 
 
@@ -106,7 +104,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView imageViewFood;
         TextView textViewFoodItem, textViewRestaurant, textViewPrice;
-        Button buttonChooseFood;
         RelativeLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
@@ -115,7 +112,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             textViewFoodItem = itemView.findViewById(R.id.textViewFoodItem);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
             textViewRestaurant = itemView.findViewById(R.id.textViewRestaurant);
-            buttonChooseFood = itemView.findViewById(R.id.buttonChooseFood);
             parentLayout = itemView.findViewById(R.id.parent_layout);
         }
     }
