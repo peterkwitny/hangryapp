@@ -10,7 +10,7 @@
         android:id="@+id/textViewNotifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/montserrat"
         android:text="Notifications"
@@ -24,7 +24,7 @@
         android:id="@+id/textViewReminder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/montserrat"
         android:text="Reminders: remind rate"
@@ -37,7 +37,7 @@
         android:id="@+id/textViewPushNotificationOnOff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/montserrat"
         android:text="Push Notifications:"
@@ -50,8 +50,8 @@
         android:id="@+id/textViewFoodInspiration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/montserrat"
         android:text="Food Inspiration:"
         android:textColor="#000000"
@@ -64,7 +64,7 @@
         android:id="@+id/textViewPushNotificationFoodInspo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/montserrat"
         android:text="Push Notifications:"
@@ -87,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="49dp"
-        android:layout_marginTop="97dp"
+        android:layout_marginTop="79dp"
         app:layout_constraintStart_toEndOf="@+id/textViewPushNotificationFoodInspo"
         app:layout_constraintTop_toBottomOf="@+id/switchReminderPushNotification" />
 
@@ -99,5 +99,19 @@
         android:layout_marginTop="74dp"
         app:layout_constraintStart_toEndOf="@+id/textViewReminder"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonGoBackToSettings"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Back to Settings"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPushNotificationFoodInspo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
