@@ -3,6 +3,7 @@ package com.example.hangryapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -173,7 +174,8 @@ public class AddFoodActivity extends AppCompatActivity implements AdapterView.On
             Meal myMeal = new Meal(name, restaurant, mealtime, cuisine, price, switchVeganChecked, switchGlutenFreeChecked, switchVegetarianChecked, switchDairyFreeChecked, switchNutFreeChecked);
             myRef.push().setValue(myMeal);
 
-            Toast.makeText(this, "Menu Item Submitted", Toast.LENGTH_SHORT).show();
+            Intent mainIntent = new Intent(this, AddPhotoActivity.class);
+            startActivity(mainIntent);
 
         }
 
