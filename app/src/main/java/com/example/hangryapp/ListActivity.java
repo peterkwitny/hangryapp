@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class ListActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ArrayList<Meal> foodItem;
+    private ArrayList<Meal> foodItem; //Creating a new arraylist of food item for the adapter to display
     private RecyclerViewAdapter recyclerViewAdapter;
     Button buttonSwipeView;
 
@@ -33,7 +33,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        foodItem = new ArrayList<>();
+        foodItem = new ArrayList<Meal>();
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerViewAdapter = new RecyclerViewAdapter(foodItem, this);

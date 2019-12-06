@@ -33,20 +33,20 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<Meal> foodItem = new ArrayList<>();
+    private ArrayList<Meal> foodItem = new ArrayList<Meal>(); //Creating a new arraylist of meals for the adapter to display
     private Context mContext;
 
-    private StorageReference mStorageRef;
-    RecyclerViewAdapter(ArrayList<Meal> foodItem, Context mContext){
+    private StorageReference mStorageRef; //storage to link to firebase, need to import mstorage
+
+    RecyclerViewAdapter(ArrayList<Meal> foodItem, Context mContext){ //RecyclerViewAdapter constructor, what creates the recyclerViewAdapter
         this.foodItem = foodItem;
         this.mContext = mContext;
 
-        mStorageRef = FirebaseStorage.getInstance().getReference();
+        mStorageRef = FirebaseStorage.getInstance().getReference(); //get the storage reference from firebase
     }
 
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { //The code that determines how each view is created
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
@@ -54,15 +54,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        //Set the text of the viewholder from the previous function, onCreateViewHolder, to the name of the
+        //specific contact by accessing the specific position for that contact. //the textView is from the listitem_item xml
+
         holder.textViewFoodItem.setText(foodItem.get(position).name);
         holder.textViewRestaurant.setText(foodItem.get(position).restaurant);
         holder.textViewPrice.setText(foodItem.get(position).price);
 
-        final File localFile = foodItem.get(position).foodPic;
 
-        StorageReference foodRef = mStorageRef.child(foodItem.get(position).foodName);
+        final File localFile = foodItem.get(position).foodPic; //getting the foodpic file from Meal
+        //with respect to the specific contact you want. Since position is passed into this function
+        // to access Food Item for the position, do foodItem.get(position)
 
-        foodRef.getFile(localFile)  //access file from firebase
+        StorageReference foodRef = mStorageRef.child(foodItem.get(position).foodName); //reference for foodName
+
+        foodRef.getFile(localFile)  //accessing the file from firebase storage
                 .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
@@ -71,7 +77,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         try{ //see if this works without an exception
 
                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), Uri.fromFile(localFile)); //turn it into an image
-
                             holder.imageViewFood.setImageBitmap(bitmap); //Setting the imageview in user_item.xml to the picture obtained
 
                         }

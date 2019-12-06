@@ -85,6 +85,9 @@ public class LikedFoodActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 User foundLikedFood = dataSnapshot.getValue(User.class);
 
+                //String foundFoodItem1 = foundLikedFood.
+
+
             }
 
             @Override
