@@ -1,6 +1,7 @@
 package com.example.hangryapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,12 +11,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class LikedFoodActivity extends AppCompatActivity {
 
     ImageView imageView1, imageView2, imageView3, imageView4;
     TextView textViewFoodItem1, textViewFoodItem2,textViewFoodItem3, textViewFoodItem4;
     TextView textViewRest1, textViewRest2, textViewRest3, textViewRest4;
     TextView textViewPrice1, textViewPrice2, textViewPrice3, textViewPrice4;
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final DatabaseReference likedFoodRef = database.getReference("Liked food");
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -65,6 +76,40 @@ public class LikedFoodActivity extends AppCompatActivity {
         textViewPrice2 = findViewById(R.id.textViewPrice2);
         textViewPrice3 = findViewById(R.id.textViewPrice3);
         textViewPrice4 = findViewById(R.id.textViewPrice4);
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference("User"); //depend on how we call in user class
+
+        myRef.orderByKey().limitToLast(4).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                User foundLikedFood = dataSnapshot.getValue(User.class);
+
+                //String foundFoodItem1 = foundLikedFood.
+
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
 

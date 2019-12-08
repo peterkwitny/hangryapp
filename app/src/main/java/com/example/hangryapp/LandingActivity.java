@@ -137,7 +137,8 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.itemLikedFood){
-            Toast.makeText(this, "You are already in Portal, you fool!", Toast.LENGTH_SHORT).show();
+            Intent likedFoodIntent = new Intent(this, LikedFoodActivity.class);
+            startActivity(likedFoodIntent);
         }else if(item.getItemId() == R.id.itemAddFood){
             Intent profileIntent = new Intent(this, AddFoodActivity.class);
             startActivity(profileIntent);
@@ -161,8 +162,8 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
 
 
         if(view == buttonFilter){
-            Intent intent = new Intent(this, FilterActivity.class);
-            startActivity(intent);
+            Intent filterIntent = new Intent(this, FilterActivity.class);
+            startActivity(filterIntent);
         } else if( view == buttonSave){
             currentDisplay = currentDisplay + 1;
             myRef.orderByKey().limitToLast(currentDisplay).addChildEventListener(new ChildEventListener() {
@@ -294,8 +295,8 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
             });
 
         }else if(view == buttonListView){
-            Intent intent = new Intent(this, ListActivity.class);
-            startActivity(intent);
+            Intent listViewIntent = new Intent(this, ListActivity.class);
+            startActivity(listViewIntent);
 
         }
 
