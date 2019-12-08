@@ -3,6 +3,7 @@ package com.example.hangryapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -127,10 +128,13 @@ public class PreferenceActivity extends AppCompatActivity  implements View.OnCli
             String userEmail = user.getEmail();
             String password = "password";
 
-            User myUser = new User(userEmail, password, switchVeganUserChecked, switchGlutenFreeUserChecked, switchVegetarianUserChecked, switchDairyFreeUserChecked, switchNutFreeUserChecked);
+            User myUser = new User(userEmail, password, switchVeganUserChecked, switchGlutenFreeUserChecked, switchVegetarianUserChecked, switchDairyFreeUserChecked, switchNutFreeUserChecked, new ArrayList<Meal>());
             myRef.push().setValue(myUser);
 
             Toast.makeText(this, "User Preferences Submitted", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(this, LandingActivity.class);
+            startActivity(intent);
         }
 
     }

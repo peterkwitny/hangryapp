@@ -1,4 +1,4 @@
-package com.example.hangryapp;
+/*package com.example.hangryapp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -83,4 +83,4 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 }
-
+*/
