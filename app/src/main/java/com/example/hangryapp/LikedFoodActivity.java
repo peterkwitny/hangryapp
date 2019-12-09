@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,16 +19,26 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class LikedFoodActivity extends AppCompatActivity {
 
-    ImageView imageView1, imageView2, imageView3, imageView4;
-    TextView textViewFoodItem1, textViewFoodItem2,textViewFoodItem3, textViewFoodItem4;
-    TextView textViewRest1, textViewRest2, textViewRest3, textViewRest4;
-    TextView textViewPrice1, textViewPrice2, textViewPrice3, textViewPrice4;
+    private ArrayList<User> likedFood;
+
+    ImageView imageView1, imageView2, imageView3;
+    TextView textViewFoodItem1, textViewFoodItem2,textViewFoodItem3;
+    TextView textViewRest1, textViewRest2, textViewRest3;
+    TextView textViewPrice1, textViewPrice2, textViewPrice3;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final DatabaseReference likedFoodRef = database.getReference("Liked food");
+    final DatabaseReference likedFoodRef = database.getReference("User");
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -60,32 +72,29 @@ public class LikedFoodActivity extends AppCompatActivity {
         imageView1 = findViewById(R.id.imageView1);
         imageView2 = findViewById(R.id.imageView2);
         imageView3 = findViewById(R.id.imageView3);
-        imageView4 = findViewById(R.id.imageView4);
 
         textViewFoodItem1 = findViewById(R.id.textViewFoodItem1);
         textViewFoodItem2 = findViewById(R.id.textViewFoodItem2);
         textViewFoodItem3 = findViewById(R.id.textViewFoodItem3);
-        textViewFoodItem4 = findViewById(R.id.textViewFoodItem4);
 
         textViewRest1 = findViewById(R.id.textViewRest1);
         textViewRest2 = findViewById(R.id.textViewRest2);
         textViewRest3 = findViewById(R.id.textViewRest3);
-        textViewRest4 = findViewById(R.id.textViewRest4);
 
         textViewPrice1 = findViewById(R.id.textViewPrice1);
         textViewPrice2 = findViewById(R.id.textViewPrice2);
         textViewPrice3 = findViewById(R.id.textViewPrice3);
-        textViewPrice4 = findViewById(R.id.textViewPrice4);
 
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("User"); //depend on how we call in user class
+        likedFood = new ArrayList<User>();
 
-        myRef.orderByKey().limitToLast(4).addChildEventListener(new ChildEventListener() {
+
+        likedFoodRef.orderByKey().limitToLast(3).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 User foundLikedFood = dataSnapshot.getValue(User.class);
 
                 //String foundFoodItem1 = foundLikedFood.
+                //textViewFoodItem1.setText(foodItem1);
 
 
             }

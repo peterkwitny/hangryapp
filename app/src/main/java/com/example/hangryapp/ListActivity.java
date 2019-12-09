@@ -34,16 +34,15 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         foodItem = new ArrayList<Meal>();
+        getFoodItem();
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerViewAdapter = new RecyclerViewAdapter(foodItem, this);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        getFoodItem();
-
-    buttonSwipeView = findViewById(R.id.buttonSwipeView);
-    buttonSwipeView.setOnClickListener(this);
+        buttonSwipeView = findViewById(R.id.buttonSwipeView);
+        buttonSwipeView.setOnClickListener(this);
 
     }
 
@@ -59,6 +58,10 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 // whenever data at this location is updated.
                 for (DataSnapshot child: dataSnapshot.getChildren()){
                     Meal food = child.getValue(Meal.class);
+                    String findName = food.name;
+                    String findRestaurant = food.restaurant;
+                    String findPrice = food.price;
+
                     foodItem.add(food);
 
                 }

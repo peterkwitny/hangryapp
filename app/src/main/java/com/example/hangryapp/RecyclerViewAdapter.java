@@ -21,8 +21,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.common.util.Base64Utils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -108,9 +111,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return foodItem.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView imageViewFood;
         TextView textViewFoodItem, textViewRestaurant, textViewPrice;
+        Button buttonSaveFood;
         RelativeLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
@@ -119,7 +123,29 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             textViewFoodItem = itemView.findViewById(R.id.textViewFoodItem);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
             textViewRestaurant = itemView.findViewById(R.id.textViewRestaurant);
+
+            buttonSaveFood = itemView.findViewById(R.id.buttonSaveFood);
+
             parentLayout = itemView.findViewById(R.id.parent_layout);
+
+            buttonSaveFood.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            final DatabaseReference myRef = database.getReference("Liked Food");
+
+            if(view == buttonSaveFood){
+                String findLikedFoodItem = textViewFoodItem.getText().toString();
+                String findLikedFoodRestaurant = textViewFoodItem.getText().toString();
+                String findLikedFoodPrice = textViewFoodItem.getText().toString();
+                User likedFood = new User(); //not sure
+
+                myRef.push().setValue(likedFood);
+
+                //how to get an image
+            }
         }
     }
 }
