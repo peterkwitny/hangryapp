@@ -172,8 +172,9 @@ public class AddFoodActivity extends AppCompatActivity implements AdapterView.On
 
         if (buttonAddMeal == v) {
 
-            Meal myMeal = new Meal(name, restaurant, mealtime, cuisine, price, switchVeganChecked, switchGlutenFreeChecked, switchVegetarianChecked, switchDairyFreeChecked, switchNutFreeChecked, null, null);
+            Meal myMeal = new Meal(name, restaurant, mealtime, cuisine, price, switchVeganChecked, switchGlutenFreeChecked, switchVegetarianChecked, switchDairyFreeChecked, switchNutFreeChecked, null);
             myRef.push().setValue(myMeal);
+
 
             Intent mainIntent = new Intent(this, AddPhotoActivity.class);
             startActivity(mainIntent);
