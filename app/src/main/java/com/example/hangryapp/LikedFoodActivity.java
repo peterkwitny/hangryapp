@@ -13,12 +13,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class LikedFoodActivity extends AppCompatActivity {
@@ -31,7 +34,7 @@ public class LikedFoodActivity extends AppCompatActivity {
     TextView textViewPrice1, textViewPrice2, textViewPrice3;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final DatabaseReference likedFoodRef = database.getReference("User");
+    final DatabaseReference myRef = database.getReference("User");
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -85,16 +88,56 @@ public class LikedFoodActivity extends AppCompatActivity {
         textViewPrice2 = findViewById(R.id.textViewPrice2);
         textViewPrice3 = findViewById(R.id.textViewPrice3);
 
-        likedFood = new ArrayList<User>();
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String findEmail = user.getEmail();
 
 
-        likedFoodRef.orderByKey().limitToLast(3).addChildEventListener(new ChildEventListener() {
+        myRef.orderByChild("email").equalTo(findEmail).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                User foundLikedFood = dataSnapshot.getValue(User.class);
+                final User foundUser = dataSnapshot.getValue(User.class);
+                final DatabaseReference savedMealsRef = database.getReference("savedmeals");
 
-                //String foundFoodItem1 = foundLikedFood.
-                //textViewFoodItem1.setText(foodItem1);
+
+                savedMealsRef.orderByKey().limitToLast(3).addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                        String foundSavedMeals = dataSnapshot.getKey();
+                        String foundMeal = foundSavedMeals.
+
+
+
+
+
+
+                        //textViewFoodItem1.setText(foundMeal);
+
+
+
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
 
 
             }
