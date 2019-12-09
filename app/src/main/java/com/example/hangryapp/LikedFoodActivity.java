@@ -5,7 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,7 +28,6 @@ import java.util.ArrayList;
 
 public class LikedFoodActivity extends AppCompatActivity {
 
-    private ArrayList<User> likedFood;
 
     ImageView imageView1, imageView2, imageView3;
     TextView textViewFoodItem1, textViewFoodItem2,textViewFoodItem3;
@@ -95,23 +96,35 @@ public class LikedFoodActivity extends AppCompatActivity {
         myRef.orderByChild("email").equalTo(findEmail).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                final User foundUser = dataSnapshot.getValue(User.class);
-                final DatabaseReference savedMealsRef = database.getReference("savedmeals");
+                final String foundKey = dataSnapshot.getKey();
+              //  final DatabaseReference savedMealsRef = database.getReference("User");
 
 
-                savedMealsRef.orderByKey().limitToLast(3).addChildEventListener(new ChildEventListener() {
+                myRef.child(foundKey).child("savedmeals").orderByKey().limitToLast(3).addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                        String foundSavedMeals = dataSnapshot.getKey();
-                        String foundMeal = foundSavedMeals.
+                        Meal foundSavedMeals = dataSnapshot.getValue(Meal.class);
+
+                        String findMeal = foundSavedMeals.name;
+                        String findRestaurant = foundSavedMeals.restaurant;
+                        String findPrice = foundSavedMeals.price;
+                        String findMealImageRef = foundSavedMeals.picReference;
 
 
+                        textViewFoodItem1.setText(findMeal);
+                        textViewFoodItem2.setText(findMeal);
+                        textViewFoodItem3.setText(findMeal);
 
+                        textViewRest1.setText(findRestaurant);
+                        textViewRest2.setText(findRestaurant);
+                        textViewRest3.setText(findRestaurant);
 
+                        textViewPrice1.setText(findPrice);
+                        textViewPrice2.setText(findPrice);
+                        textViewPrice3.setText(findPrice);
 
-
-                        //textViewFoodItem1.setText(foundMeal);
+                        //imageView1.setImageBitmap(findMealImageRef);
 
 
 
@@ -137,9 +150,6 @@ public class LikedFoodActivity extends AppCompatActivity {
 
                     }
                 });
-
-
-
             }
 
             @Override
