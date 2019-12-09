@@ -1,3 +1,5 @@
+/*
+
 package com.example.hangryapp;
 
 
@@ -121,3 +123,5 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 }
+
+ */
