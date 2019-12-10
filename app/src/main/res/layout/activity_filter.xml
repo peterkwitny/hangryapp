@@ -10,87 +10,84 @@
     <Switch
         android:id="@+id/switchVegan"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="63dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="59dp"
-        android:layout_marginBottom="390dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="10dp"
         android:text="Vegan"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/switchGF"
+        app:layout_constraintBottom_toTopOf="@+id/switchGF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBarPrice" />
-
-    <Switch
-        android:id="@+id/switchVeg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="63dp"
-        android:layout_marginTop="29dp"
-        android:layout_marginEnd="29dp"
-        android:layout_marginBottom="5dp"
-        android:text="Vegetarian"
-        app:layout_constraintBottom_toTopOf="@+id/switchNF"
-        app:layout_constraintEnd_toStartOf="@+id/switchDF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switchVegan" />
 
     <Switch
         android:id="@+id/switchDF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="29dp"
-        android:layout_marginEnd="109dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="12dp"
         android:text="Dairy Free"
-        app:layout_constraintBottom_toTopOf="@+id/switchNF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/switchVeg"
-        app:layout_constraintTop_toBottomOf="@+id/switchGF" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextCusine1"
+        app:layout_constraintEnd_toEndOf="@+id/switchNF"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="@+id/switchNF"
+        app:layout_constraintTop_toBottomOf="@+id/switchVeg" />
+
+    <Switch
+        android:id="@+id/switchVeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Vegetarian"
+        app:layout_constraintBottom_toTopOf="@+id/switchDF"
+        app:layout_constraintEnd_toEndOf="@+id/switchDF"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/switchDF"
+        app:layout_constraintTop_toBottomOf="@+id/switchNF" />
 
     <Switch
         android:id="@+id/switchNF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="142dp"
-        android:layout_marginTop="104dp"
-        android:layout_marginEnd="176dp"
-        android:layout_marginBottom="23dp"
+        android:layout_marginTop="10dp"
         android:text="Nut Free"
-        app:layout_constraintBottom_toTopOf="@+id/editTextCusine1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBarPrice" />
+        app:layout_constraintBottom_toTopOf="@+id/switchVeg"
+        app:layout_constraintEnd_toEndOf="@+id/switchGF"
+        app:layout_constraintHorizontal_bias="0.315"
+        app:layout_constraintStart_toStartOf="@+id/switchGF"
+        app:layout_constraintTop_toBottomOf="@+id/switchGF" />
 
     <Switch
         android:id="@+id/switchGF"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="59dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="99dp"
-        android:layout_marginBottom="389dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="10dp"
         android:text="Gluten Free"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/switchVegan"
-        app:layout_constraintTop_toBottomOf="@+id/seekBarPrice" />
+        app:layout_constraintBottom_toTopOf="@+id/switchNF"
+        app:layout_constraintEnd_toEndOf="@+id/switchVegan"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/switchVegan"
+        app:layout_constraintTop_toBottomOf="@+id/switchVegan" />
 
     <TextView
         android:id="@+id/textViewPriceMinimum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="54dp"
-        android:layout_marginTop="174dp"
-        android:layout_marginEnd="240dp"
-        android:layout_marginBottom="538dp"
+        android:layout_marginTop="40dp"
         android:text="Price Minimum: $0"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitleFilter" />
+
+    <TextView
+        android:id="@+id/textViewPriceMaximumValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:text="0.00"
+        app:layout_constraintStart_toEndOf="@+id/textViewPriceMaximum"
+        app:layout_constraintTop_toTopOf="@+id/textViewPriceMaximum" />
 
     <TextView
         android:id="@+id/textViewPriceMaximum"
@@ -103,64 +100,55 @@
         android:text="Price Maximum: $"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPriceMinimum" />
-
-    <TextView
-        android:id="@+id/textViewPriceMaximumValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="46dp"
-        android:layout_marginEnd="212dp"
-        android:layout_marginBottom="509dp"
-        android:text="0.00"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewPriceMaximum"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitleFilter" />
-
-    <TextView
-        android:id="@+id/textView0"
-        android:layout_width="35dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="245dp"
-        android:layout_marginBottom="465dp"
-        android:text="$0.00"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewPriceMinimum"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView50"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="113dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="110dp"
-        android:layout_marginBottom="9dp"
+        android:layout_marginTop="50dp"
         android:text="$50.00"
-        app:layout_constraintBottom_toTopOf="@+id/seekBarPrice"
         app:layout_constraintEnd_toStartOf="@+id/textView100"
         app:layout_constraintStart_toEndOf="@+id/textView0"
         app:layout_constraintTop_toBottomOf="@+id/textViewPriceMaximumValue" />
 
     <TextView
+        android:id="@+id/textView0"
+        android:layout_width="35dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="50dp"
+        android:text="$0.00"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPriceMaximum" />
+
+    <TextView
+        android:id="@+id/textView100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="44dp"
+        android:text="$100.00"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPriceMaximumValue" />
+
+    <TextView
         android:id="@+id/textViewTitleFilter"
-        android:layout_width="162dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="154dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="95dp"
-        android:layout_marginBottom="574dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
         android:fontFamily="@font/montserrat"
         android:text="SET FILTERS"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.308"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -168,69 +156,50 @@
         android:id="@+id/buttonSetFilters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="130dp"
-        android:layout_marginEnd="176dp"
-        android:layout_marginBottom="127dp"
+        android:layout_marginBottom="30dp"
         android:text="Set Filters"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextCusine1"
-        android:layout_width="240dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="91dp"
-        android:ems="10"
-        android:hint="Cusine Preference 1"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editTextCusine2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switchNF" />
-
-    <EditText
         android:id="@+id/editTextCusine2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="90dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="108dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginEnd="100dp"
         android:ems="10"
         android:hint="Cusine Preference 2"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/buttonSetFilters"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCusine1" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextCusine1"
+        android:layout_width="240dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:ems="10"
+        android:hint="Cusine Preference 1"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/editTextCusine2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <SeekBar
         android:id="@+id/seekBarPrice"
         android:layout_width="354dp"
         android:layout_height="35dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="200dp"
         android:layout_marginEnd="38dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/switchVegan"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView0" />
-
-    <TextView
-        android:id="@+id/textView100"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="245dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginBottom="467dp"
-        android:text="$100.00"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
