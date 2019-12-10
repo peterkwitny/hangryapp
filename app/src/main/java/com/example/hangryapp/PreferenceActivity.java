@@ -128,7 +128,7 @@ public class PreferenceActivity extends AppCompatActivity  implements View.OnCli
             String userEmail = user.getEmail();
             String password = "password";
 
-            User myUser = new User(userEmail, password, switchVeganUserChecked, switchGlutenFreeUserChecked, switchVegetarianUserChecked, switchDairyFreeUserChecked, switchNutFreeUserChecked, new ArrayList<Meal>());
+            User myUser = new User(userEmail, password, switchVeganUserChecked, switchGlutenFreeUserChecked, switchVegetarianUserChecked, switchDairyFreeUserChecked, switchNutFreeUserChecked, new ArrayList<Meal>(), 100.00, "", "");
             myRef.push().setValue(myUser);
 
             Toast.makeText(this, "User Preferences Submitted", Toast.LENGTH_SHORT).show();
