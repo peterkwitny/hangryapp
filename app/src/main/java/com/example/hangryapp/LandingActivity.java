@@ -101,6 +101,9 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 Boolean findDF = foundMeal.dairyFree;
                 Boolean findNF = foundMeal.nutFree;
 
+                Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/hangryapp-f7405.appspot.com/o/images%2Ff5858235-be47-4658-996f-c8709ac75d57?alt=media&token=44839365-e60e-4c2a-986f-a9a507f48018").into(imageViewFood);
+
+
 
 
                 textViewFoodName.setText(findName);
