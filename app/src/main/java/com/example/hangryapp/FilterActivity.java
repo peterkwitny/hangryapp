@@ -39,7 +39,6 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     Button buttonSetFilters;
 
     Double dbPricePercent = 0.20;
-    Double dbPriceAMount = 20.00;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +152,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                     u.nutfree = switchNFTrue;
                     u.vegan = switchVeganTrue;
                     u.vegetarian = switchDFTrue;
+                    u.priceMax = dbPricePercent;
 
                     if(editTextCusine1.getText().toString() != ""){
                         u.cusinePreference1 = editTextCusine1.getText().toString();
