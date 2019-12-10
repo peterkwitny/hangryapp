@@ -77,7 +77,7 @@ public class LikedFoodActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liked_food);
 
@@ -111,12 +111,13 @@ public class LikedFoodActivity extends AppCompatActivity {
                 myRef.child(foundKey).child("savedmeals").orderByKey().limitToLast(3).addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                        ArrayList<Meal> meals = new ArrayList<>();
+                        ArrayList<Meal> savedMeals = new ArrayList<>();
+
 
                         for(DataSnapshot snapshot: dataSnapshot.getChildren()){
                             Meal foundSavedMeals = dataSnapshot.getValue(Meal.class);
 
-                            meals.add(foundSavedMeals);
+                            savedMeals.add(foundSavedMeals);
                             //String findMeal = foundSavedMeals.name;
                             //String findRestaurant = foundSavedMeals.restaurant;
                             //String findPrice = foundSavedMeals.price;
@@ -134,17 +135,17 @@ public class LikedFoodActivity extends AppCompatActivity {
 
 
 
-                        textViewFoodItem1.setText(meals.get(0).name);
-                        textViewFoodItem2.setText(meals.get(1).name);
-                        textViewFoodItem3.setText(meals.get(2).name);
+                        textViewFoodItem1.setText(savedMeals.get(0).name);
+                        textViewFoodItem2.setText(savedMeals.get(1).name);
+                        textViewFoodItem3.setText(savedMeals.get(2).name);
 
-                        textViewRest1.setText(meals.get(0).restaurant);
-                        textViewRest2.setText(meals.get(1).restaurant);
-                        textViewRest3.setText(meals.get(2).restaurant);
+                        textViewRest1.setText(savedMeals.get(0).restaurant);
+                        textViewRest2.setText(savedMeals.get(1).restaurant);
+                        textViewRest3.setText(savedMeals.get(2).restaurant);
 
-                        textViewPrice1.setText(meals.get(0).price);
-                        textViewPrice2.setText(meals.get(1).price);
-                        textViewPrice3.setText(meals.get(2).price);
+                        textViewPrice1.setText(savedMeals.get(0).price);
+                        textViewPrice2.setText(savedMeals.get(1).price);
+                        textViewPrice3.setText(savedMeals.get(2).price);
 
                         //imageView1.setImageBitmap(foodImage);
 
