@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -82,11 +85,18 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 String findName = foundMeal.name;
                 String findRestaurant = foundMeal.restaurant;
                 String findPrice = foundMeal.price;
+                String picReference = foundMeal.picReference;
                 Boolean findVegan = foundMeal.vegan;
                 Boolean findVegetarian = foundMeal.vegetarian;
                 Boolean findGF = foundMeal.glutenFree;
                 Boolean findDF = foundMeal.dairyFree;
                 Boolean findNF = foundMeal.nutFree;
+
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+                StorageReference photoReference = storageReference;
+
+
+
 
 
                 textViewFoodName.setText(findName);

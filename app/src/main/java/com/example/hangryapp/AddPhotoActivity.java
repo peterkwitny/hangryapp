@@ -122,11 +122,13 @@ public class AddPhotoActivity extends AppCompatActivity implements View.OnClickL
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
 
-                            myRef.orderByChild("picReference").limitToLast(1).addChildEventListener(new ChildEventListener() {
+                            myRef.orderByKey().limitToLast(1).addChildEventListener(new ChildEventListener() {
                                 @Override
                                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                                     String imageReference = ref.toString();
                                     String myKey = dataSnapshot.getKey();
+                                    String[] split = imageReference.split("/");
+                                    imageReference = split[3] + "/" + split[4]+".jpg";
                                     myRef.child(myKey).child("picReference").setValue(imageReference);
                                     Toast.makeText(AddPhotoActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
 
