@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -82,11 +85,18 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 String findName = foundMeal.name;
                 String findRestaurant = foundMeal.restaurant;
                 String findPrice = foundMeal.price;
+                String picReference = foundMeal.picReference;
                 Boolean findVegan = foundMeal.vegan;
                 Boolean findVegetarian = foundMeal.vegetarian;
                 Boolean findGF = foundMeal.glutenFree;
                 Boolean findDF = foundMeal.dairyFree;
                 Boolean findNF = foundMeal.nutFree;
+
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+                StorageReference photoReference = storageReference;
+
+
+
 
 
                 textViewFoodName.setText(findName);
@@ -246,19 +256,18 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
 
-
-
                     Meal currentMeal = dataSnapshot.getValue(Meal.class);
+                    currentSavedMeal = currentMeal;
 
 
-                    String findName = currentMeal.name;
-                    String findRestaurant = currentMeal.restaurant;
-                    String findPrice = currentMeal.price;
-                    Boolean findVegan = currentMeal.vegan;
-                    Boolean findVegetarian = currentMeal.vegetarian;
-                    Boolean findGF = currentMeal.glutenFree;
-                    Boolean findDF = currentMeal.dairyFree;
-                    Boolean findNF = currentMeal.nutFree;
+                    String findName = currentSavedMeal.name;
+                    String findRestaurant = currentSavedMeal.restaurant;
+                    String findPrice = currentSavedMeal.price;
+                    Boolean findVegan = currentSavedMeal.vegan;
+                    Boolean findVegetarian = currentSavedMeal.vegetarian;
+                    Boolean findGF = currentSavedMeal.glutenFree;
+                    Boolean findDF = currentSavedMeal.dairyFree;
+                    Boolean findNF = currentSavedMeal.nutFree;
 
 
                     textViewFoodName.setText(findName);
