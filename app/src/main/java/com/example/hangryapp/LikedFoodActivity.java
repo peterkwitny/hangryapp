@@ -25,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
@@ -108,30 +109,25 @@ public class LikedFoodActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 final String foundKey = dataSnapshot.getKey();
 
-                myRef.child(foundKey).child("savedmeals").orderByKey().limitToLast(3).addChildEventListener(new ChildEventListener() {
+                myRef.child(foundKey).child("savedmeals").orderByKey().limitToLast(3).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         ArrayList<Meal> savedMeals = new ArrayList<>();
 
 
-                        for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                            Meal foundSavedMeals = dataSnapshot.getValue(Meal.class);
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            savedMeals.add(snapshot.getValue(Meal.class));
 
-                            savedMeals.add(foundSavedMeals);
-                            //String findMeal = foundSavedMeals.name;
-                            //String findRestaurant = foundSavedMeals.restaurant;
-                            //String findPrice = foundSavedMeals.price;
-                            //String findMealImageRef = foundSavedMeals.picReference;
 
                             //Uri myUri = Uri.parse(findMealImageRef);
                             //Bitmap foodImage = null;
                             //try {
 
-                                //foodImage = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), myUri);
-                            } //catch (IOException e) {
+                            //foodImage = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), myUri);
+                            //} //catch (IOException e) {
 
                             //}
-                        //}
+                        }
 
 
 
@@ -149,23 +145,6 @@ public class LikedFoodActivity extends AppCompatActivity {
 
                         //imageView1.setImageBitmap(foodImage);
 
-
-
-                    }
-
-                    @Override
-                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
                     }
 
                     @Override
@@ -174,7 +153,6 @@ public class LikedFoodActivity extends AppCompatActivity {
                     }
                 });
             }
-
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
