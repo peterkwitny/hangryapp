@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
@@ -22,7 +25,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -36,6 +41,9 @@ public class LikedFoodActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myRef = database.getReference("User");
+
+    private Context mContext;
+    private StorageReference mStorageRef;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -89,42 +97,56 @@ public class LikedFoodActivity extends AppCompatActivity {
         textViewPrice2 = findViewById(R.id.textViewPrice2);
         textViewPrice3 = findViewById(R.id.textViewPrice3);
 
+        this.mContext = mContext;
+
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String findEmail = user.getEmail();
+        final String findEmail = user.getEmail();
 
 
         myRef.orderByChild("email").equalTo(findEmail).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 final String foundKey = dataSnapshot.getKey();
-              //  final DatabaseReference savedMealsRef = database.getReference("User");
-
 
                 myRef.child(foundKey).child("savedmeals").orderByKey().limitToLast(3).addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        ArrayList<Meal> meals = new ArrayList<>();
 
-                        Meal foundSavedMeals = dataSnapshot.getValue(Meal.class);
+                        for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                            Meal foundSavedMeals = dataSnapshot.getValue(Meal.class);
 
-                        String findMeal = foundSavedMeals.name;
-                        String findRestaurant = foundSavedMeals.restaurant;
-                        String findPrice = foundSavedMeals.price;
-                        String findMealImageRef = foundSavedMeals.picReference;
+                            meals.add(foundSavedMeals);
+                            //String findMeal = foundSavedMeals.name;
+                            //String findRestaurant = foundSavedMeals.restaurant;
+                            //String findPrice = foundSavedMeals.price;
+                            //String findMealImageRef = foundSavedMeals.picReference;
+
+                            //Uri myUri = Uri.parse(findMealImageRef);
+                            //Bitmap foodImage = null;
+                            //try {
+
+                                //foodImage = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), myUri);
+                            } //catch (IOException e) {
+
+                            //}
+                        //}
 
 
-                        textViewFoodItem1.setText(findMeal);
-                        textViewFoodItem2.setText(findMeal);
-                        textViewFoodItem3.setText(findMeal);
 
-                        textViewRest1.setText(findRestaurant);
-                        textViewRest2.setText(findRestaurant);
-                        textViewRest3.setText(findRestaurant);
+                        textViewFoodItem1.setText(meals.get(0).name);
+                        textViewFoodItem2.setText(meals.get(1).name);
+                        textViewFoodItem3.setText(meals.get(2).name);
 
-                        textViewPrice1.setText(findPrice);
-                        textViewPrice2.setText(findPrice);
-                        textViewPrice3.setText(findPrice);
+                        textViewRest1.setText(meals.get(0).restaurant);
+                        textViewRest2.setText(meals.get(1).restaurant);
+                        textViewRest3.setText(meals.get(2).restaurant);
 
-                        //imageView1.setImageBitmap(findMealImageRef);
+                        textViewPrice1.setText(meals.get(0).price);
+                        textViewPrice2.setText(meals.get(1).price);
+                        textViewPrice3.setText(meals.get(2).price);
+
+                        //imageView1.setImageBitmap(foodImage);
 
 
 
