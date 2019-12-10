@@ -3,6 +3,7 @@ package com.example.hangryapp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -31,7 +32,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ThrowOnExtraProperties;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -47,17 +50,18 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
     ImageView imageViewFood;
     int currentDisplay;
     Meal currentSavedMeal;
-
-
+    StorageReference mStorageRef;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       /* final StorageReference mStorageRef;
-        mStorageRef = FirebaseStorage.getInstance().getReference();*/
+       /* final StorageReference mStorageRef; */
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
         setContentView(R.layout.activity_landing);
+
+
 
         textViewFoodName = findViewById(R.id.textViewFoodName);
         textViewRestaurant = findViewById(R.id.textViewRestaurant);
@@ -101,7 +105,18 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 Boolean findDF = foundMeal.dairyFree;
                 Boolean findNF = foundMeal.nutFree;
 
-                Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/hangryapp-f7405.appspot.com/o/images%2Ff5858235-be47-4658-996f-c8709ac75d57?alt=media&token=44839365-e60e-4c2a-986f-a9a507f48018").into(imageViewFood);
+
+                StorageReference picRef = mStorageRef.child(picReference);
+                final File localFile;
+
+                picRef.getDownloadUrl()
+                        .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Toast.makeText(LandingActivity.this, uri.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+              //  Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(imageViewFood);
 
 
 
