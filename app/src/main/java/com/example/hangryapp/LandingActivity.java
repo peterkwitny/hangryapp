@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +21,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -30,7 +34,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -42,11 +49,13 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
     Meal currentSavedMeal;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StorageReference mStorageRef;
-        mStorageRef = FirebaseStorage.getInstance().getReference();
+       /* final StorageReference mStorageRef;
+        mStorageRef = FirebaseStorage.getInstance().getReference();*/
 
         setContentView(R.layout.activity_landing);
 
@@ -91,11 +100,6 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 Boolean findGF = foundMeal.glutenFree;
                 Boolean findDF = foundMeal.dairyFree;
                 Boolean findNF = foundMeal.nutFree;
-
-                StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-                StorageReference photoReference = storageReference;
-
-
 
 
 
