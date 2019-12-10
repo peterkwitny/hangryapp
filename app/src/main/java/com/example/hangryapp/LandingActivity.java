@@ -256,19 +256,18 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
 
-
-
                     Meal currentMeal = dataSnapshot.getValue(Meal.class);
+                    currentSavedMeal = currentMeal;
 
 
-                    String findName = currentMeal.name;
-                    String findRestaurant = currentMeal.restaurant;
-                    String findPrice = currentMeal.price;
-                    Boolean findVegan = currentMeal.vegan;
-                    Boolean findVegetarian = currentMeal.vegetarian;
-                    Boolean findGF = currentMeal.glutenFree;
-                    Boolean findDF = currentMeal.dairyFree;
-                    Boolean findNF = currentMeal.nutFree;
+                    String findName = currentSavedMeal.name;
+                    String findRestaurant = currentSavedMeal.restaurant;
+                    String findPrice = currentSavedMeal.price;
+                    Boolean findVegan = currentSavedMeal.vegan;
+                    Boolean findVegetarian = currentSavedMeal.vegetarian;
+                    Boolean findGF = currentSavedMeal.glutenFree;
+                    Boolean findDF = currentSavedMeal.dairyFree;
+                    Boolean findNF = currentSavedMeal.nutFree;
 
 
                     textViewFoodName.setText(findName);
