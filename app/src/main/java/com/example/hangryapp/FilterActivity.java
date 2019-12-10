@@ -130,9 +130,6 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         });
 
 
-
-
-
     }
 
     @Override
@@ -197,7 +194,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
         dbPricePercent = i*1.0;
-        textViewPriceMaximum.setText(i);
+        textViewPriceMaximum.setText(Double.toString(dbPricePercent));
     }
 
     @Override
