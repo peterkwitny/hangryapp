@@ -106,12 +106,11 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 Boolean findNF = foundMeal.nutFree;
 
 
+
                 StorageReference picRef = mStorageRef.child(picReference);
                 final File localFile;
                 try {
                     localFile = File.createTempFile("image", "jpg");
-
-
 
                         picRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                             @Override
@@ -383,7 +382,6 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     //Toast.makeText(LandingActivity.this, "Child Called", Toast.LENGTH_SHORT).show();
 
-
                     Meal newMeal = dataSnapshot.getValue(Meal.class);
 
 
@@ -397,6 +395,8 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                     Boolean findDF = newMeal.dairyFree;
                     Boolean findNF = newMeal.nutFree;
 
+
+                    Toast.makeText(LandingActivity.this, picReference, Toast.LENGTH_SHORT).show();
 
                     StorageReference picRef = mStorageRef.child(picReference);
                     final File localFile;
@@ -422,7 +422,6 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
 
                     }
                   //  Toast.makeText(LandingActivity.this, "Child Loaded", Toast.LENGTH_SHORT).show();
-
 
 
                     textViewFoodName.setText(findName);
