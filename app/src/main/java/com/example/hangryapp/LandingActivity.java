@@ -50,7 +50,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
     TextView textViewFoodName,textViewRestaurant,textViewPrice, textViewRestriction, textViewRestriction2, textViewRestriction3, textViewRestriction4, textViewRestriction5;
     Button buttonNope, buttonSave, buttonFilter, buttonListView;
     ImageView imageViewFood;
-    int currentDisplay;
+    int currentDisplay = 1;
     Meal currentSavedMeal;
     StorageReference mStorageRef;
 
@@ -62,7 +62,6 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
         setContentView(R.layout.activity_landing);
-
 
 
         textViewFoodName = findViewById(R.id.textViewFoodName);
@@ -88,11 +87,10 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         final DatabaseReference myRef = database.getReference("Meal");
 
 
-        myRef.orderByKey().limitToFirst(1).addChildEventListener(new ChildEventListener() {
+        myRef.orderByKey().limitToFirst(currentDisplay).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                currentDisplay = 1;
 
                 Meal foundMeal = dataSnapshot.getValue(Meal.class);
                 currentSavedMeal = foundMeal;
@@ -133,9 +131,6 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 catch(IOException e){
 
                 }
-
-
-
 
 
 
@@ -389,7 +384,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
             myRef.orderByKey().limitToFirst(currentDisplay).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    Toast.makeText(LandingActivity.this, "Child Called", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(LandingActivity.this, "Child Called", Toast.LENGTH_SHORT).show();
 
 
                     Meal newMeal = dataSnapshot.getValue(Meal.class);
@@ -429,7 +424,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                     catch(IOException e){
 
                     }
-                    Toast.makeText(LandingActivity.this, "Child Loaded", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(LandingActivity.this, "Child Loaded", Toast.LENGTH_SHORT).show();
 
 
 
