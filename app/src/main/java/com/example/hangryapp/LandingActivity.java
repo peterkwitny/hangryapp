@@ -87,7 +87,8 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         final DatabaseReference myRef = database.getReference("Meal");
 
 
-    myRef.orderByKey().limitToFirst(currentDisplay).addChildEventListener(new ChildEventListener() {
+
+        myRef.orderByKey().limitToFirst(currentDisplay).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String s) {
 
@@ -209,7 +210,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("Meal");
+        final DatabaseReference myRef3 = database.getReference("Meal");
         final DatabaseReference myRef2 = database.getReference("User");
 
         if (view == buttonNope || view == buttonSave){
@@ -286,7 +287,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
 
 
 
-            myRef.orderByKey().limitToFirst(currentDisplay).addChildEventListener(new ChildEventListener() {
+            myRef3.orderByKey().limitToFirst(currentDisplay).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String s) {
 
@@ -377,10 +378,10 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
 
         } else if(view == buttonNope){
 
-            myRef.orderByKey().limitToFirst(currentDisplay).addChildEventListener(new ChildEventListener() {
+            myRef3.orderByKey().limitToFirst(currentDisplay).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String s) {
-                    //Toast.makeText(LandingActivity.this, "Child Called", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LandingActivity.this, "Child Called", Toast.LENGTH_SHORT).show();
 
                     Meal newMeal = snapshot.getValue(Meal.class);
 
@@ -396,7 +397,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                     Boolean findNF = newMeal.nutFree;
 
 
-                    Toast.makeText(LandingActivity.this, picReference, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(LandingActivity.this, picReference, Toast.LENGTH_SHORT).show();
 
                     StorageReference picRef = mStorageRef.child(picReference);
                     final File localFile;
@@ -421,7 +422,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                     catch(IOException e){
 
                     }
-                  //  Toast.makeText(LandingActivity.this, "Child Loaded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LandingActivity.this, "Child Loaded", Toast.LENGTH_SHORT).show();
 
 
                     textViewFoodName.setText(findName);
