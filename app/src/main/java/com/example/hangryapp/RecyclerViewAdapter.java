@@ -46,20 +46,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private ArrayList<Meal> foodItem = new ArrayList<Meal>(); //Creating a new arraylist of meals for the adapter to display
     private Context mContext;
-
     private StorageReference mStorageRef; //storage to link to firebase, need to import mstorage
 
     RecyclerViewAdapter(ArrayList<Meal> foodItem, Context mContext){ //RecyclerViewAdapter constructor, what creates the recyclerViewAdapter
         this.foodItem = foodItem;
         this.mContext = mContext;
 
-        //mStorageRef = FirebaseStorage.getInstance().getReference(); //get the storage reference from firebase
     }
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { //The code that determines how each view is created
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
+        mStorageRef = FirebaseStorage.getInstance().getReference();
         return viewHolder;
     }
 
@@ -72,17 +71,30 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.textViewRestaurant.setText(foodItem.get(position).restaurant);
         holder.textViewPrice.setText(foodItem.get(position).price);
 
+        StorageReference picRef = mStorageRef.child(foodItem.get(position).picReference); //reference for foodName
+        final File localFile;
+        try {
+            localFile = File.createTempFile("image", "jpg");
+            picRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
 
-        //final File localFile = foodItem.get(position).foodPic; //getting the foodpic file from Meal
-        //with respect to the specific contact you want. Since position is passed into this function
-        // to access Food Item for the position, do foodItem.get(position)
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), Uri.fromFile(localFile));
+                        holder.imageViewFood.setImageBitmap(bitmap);
+                    }
+                    catch(IOException e){
 
-        //StorageReference foodRef = mStorageRef.child(foodItem.get(position).foodName); //reference for foodName
+                    }
+                }
+            });
 
+        }
+        catch(IOException e){
+
+        }
 
     }
-
-
 
 
     @Override
@@ -91,14 +103,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder  {
-        //ImageView imageViewFood;
+        ImageView imageViewFood;
         TextView textViewFoodItem, textViewRestaurant, textViewPrice;
         Button buttonSaveFood;
         RelativeLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            //imageViewFood = itemView.findViewById(R.id.imageViewFood);
+            imageViewFood = itemView.findViewById(R.id.imageViewFood);
             textViewFoodItem = itemView.findViewById(R.id.textViewFoodItem);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
             textViewRestaurant = itemView.findViewById(R.id.textViewRestaurant);

@@ -8,6 +8,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -26,8 +28,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -98,7 +103,8 @@ public class LikedFoodActivity extends AppCompatActivity {
         textViewPrice2 = findViewById(R.id.textViewPrice2);
         textViewPrice3 = findViewById(R.id.textViewPrice3);
 
-        this.mContext = mContext;
+        //this.mContext = mContext;
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String findEmail = user.getEmail();
@@ -112,23 +118,45 @@ public class LikedFoodActivity extends AppCompatActivity {
                 myRef.child(foundKey).child("savedmeals").orderByKey().limitToLast(3).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        ArrayList<Meal> savedMeals = new ArrayList<>();
+                        final ArrayList<Meal> savedMeals = new ArrayList<>();
+                        final ArrayList<Bitmap> myBitmap = new ArrayList<>();
 
 
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            savedMeals.add(snapshot.getValue(Meal.class));
+                            Meal foundMeal = snapshot.getValue(Meal.class);
+                            savedMeals.add(foundMeal);
+                            final String picRefer = foundMeal.picReference;
+                            StorageReference picRef = mStorageRef.child(picRefer);
+
+                            final File localFile;
+                            try {
+                                localFile = File.createTempFile("image", "jpg");
 
 
-                            //Uri myUri = Uri.parse(findMealImageRef);
-                            //Bitmap foodImage = null;
-                            //try {
 
-                            //foodImage = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), myUri);
-                            //} //catch (IOException e) {
+                                picRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
 
-                            //}
+                                        try {
+                                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(localFile));
+                                            myBitmap.add(bitmap);
+
+
+                                        }
+                                        catch(IOException e){
+
+                                        }
+                                    }
+                                });
+
+                            }
+                            catch(IOException e){
+
+                            }
+
+
                         }
-
 
 
                         textViewFoodItem1.setText(savedMeals.get(0).name);
@@ -143,7 +171,10 @@ public class LikedFoodActivity extends AppCompatActivity {
                         textViewPrice2.setText(savedMeals.get(1).price);
                         textViewPrice3.setText(savedMeals.get(2).price);
 
-                        //imageView1.setImageBitmap(foodImage);
+                        imageView2.setImageBitmap(myBitmap.get(0));
+                        imageView2.setImageBitmap(myBitmap.get(1));
+                        imageView2.setImageBitmap(myBitmap.get(2));
+
 
                     }
 
