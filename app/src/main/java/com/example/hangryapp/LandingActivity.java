@@ -13,6 +13,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -41,6 +42,8 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -98,7 +101,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 String findName = foundMeal.name;
                 String findRestaurant = foundMeal.restaurant;
                 String findPrice = foundMeal.price;
-                String picReference = foundMeal.picReference;
+                final String picReference = foundMeal.picReference;
                 Boolean findVegan = foundMeal.vegan;
                 Boolean findVegetarian = foundMeal.vegetarian;
                 Boolean findGF = foundMeal.glutenFree;
@@ -108,15 +111,31 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
 
                 StorageReference picRef = mStorageRef.child(picReference);
                 final File localFile;
+                try {
+                    localFile = File.createTempFile("image", "jpg");
 
-                picRef.getDownloadUrl()
-                        .addOnSuccessListener(new OnSuccessListener<Uri>() {
+
+
+                        picRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                             @Override
-                            public void onSuccess(Uri uri) {
-                                Toast.makeText(LandingActivity.this, uri.toString(), Toast.LENGTH_SHORT).show();
+                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+
+                                try {
+                                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(localFile));
+                                    imageViewFood.setImageBitmap(bitmap);
+                                }
+                                catch(IOException e){
+
+                                }
                             }
                         });
-              //  Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(imageViewFood);
+
+                }
+                catch(IOException e){
+
+                }
+
+
 
 
 
@@ -285,11 +304,40 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                     String findName = currentSavedMeal.name;
                     String findRestaurant = currentSavedMeal.restaurant;
                     String findPrice = currentSavedMeal.price;
+                    String picReference = currentSavedMeal.picReference;
                     Boolean findVegan = currentSavedMeal.vegan;
                     Boolean findVegetarian = currentSavedMeal.vegetarian;
                     Boolean findGF = currentSavedMeal.glutenFree;
                     Boolean findDF = currentSavedMeal.dairyFree;
                     Boolean findNF = currentSavedMeal.nutFree;
+
+
+                    StorageReference picRef = mStorageRef.child(picReference);
+                    final File localFile;
+                    try {
+                        localFile = File.createTempFile("image", "jpg");
+
+
+
+                        picRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+
+                                try {
+                                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(localFile));
+                                    imageViewFood.setImageBitmap(bitmap);
+                                }
+                                catch(IOException e){
+
+                                }
+                            }
+                        });
+
+                    }
+                    catch(IOException e){
+
+                    }
+
 
 
                     textViewFoodName.setText(findName);
@@ -338,36 +386,52 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
 
         } else if(view == buttonNope){
             currentDisplay = currentDisplay + 1;
-            myRef.orderByKey().limitToLast(currentDisplay).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
 
             myRef.orderByKey().limitToFirst(currentDisplay).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                    Toast.makeText(LandingActivity.this, "Child Called", Toast.LENGTH_SHORT).show();
 
 
                     Meal newMeal = dataSnapshot.getValue(Meal.class);
 
 
-
                     String findName = newMeal.name;
                     String findRestaurant = newMeal.restaurant;
                     String findPrice = newMeal.price;
+                    String picReference = newMeal.picReference;
                     Boolean findVegan = newMeal.vegan;
                     Boolean findVegetarian = newMeal.vegetarian;
                     Boolean findGF = newMeal.glutenFree;
                     Boolean findDF = newMeal.dairyFree;
                     Boolean findNF = newMeal.nutFree;
+
+
+                    StorageReference picRef = mStorageRef.child(picReference);
+                    final File localFile;
+                    try {
+                        localFile = File.createTempFile("image", "jpg");
+
+                        picRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+
+                                try {
+                                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(localFile));
+                                    imageViewFood.setImageBitmap(bitmap);
+                                }
+                                catch(IOException e){
+
+                                }
+                            }
+                        });
+
+                    }
+                    catch(IOException e){
+
+                    }
+                    Toast.makeText(LandingActivity.this, "Child Loaded", Toast.LENGTH_SHORT).show();
+
 
 
                     textViewFoodName.setText(findName);
@@ -420,5 +484,6 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         }
 
     }
+
 
 }

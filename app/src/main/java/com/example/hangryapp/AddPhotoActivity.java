@@ -128,7 +128,7 @@ public class AddPhotoActivity extends AppCompatActivity implements View.OnClickL
                                     String imageReference = ref.toString();
                                     String myKey = dataSnapshot.getKey();
                                     String[] split = imageReference.split("/");
-                                    imageReference = split[3] + "/" + split[4]+".jpg";
+                                    imageReference = split[3] + "/" + split[4];
                                     myRef.child(myKey).child("picReference").setValue(imageReference);
                                     Toast.makeText(AddPhotoActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
 
