@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -478,7 +477,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
             });
 
         }else if(view == buttonListView){
-            Intent listViewIntent = new Intent(this, ListActivity.class);
+            Intent listViewIntent = new Intent(LandingActivity.this, ListActivity.class);
             startActivity(listViewIntent);
 
         }

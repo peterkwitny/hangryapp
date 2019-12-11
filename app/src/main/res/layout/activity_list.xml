@@ -13,8 +13,9 @@
         android:id="@+id/buttonSwipeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:text="SWIPE VIEW"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="156dp" />
@@ -22,7 +23,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="550dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
         tools:layout_editor_absoluteX="106dp"
         tools:layout_editor_absoluteY="261dp" />
 

@@ -1,4 +1,4 @@
-/*
+
 
 package com.example.hangryapp;
 
@@ -19,11 +19,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.common.util.Base64Utils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FileDownloadTask;
@@ -47,7 +53,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.foodItem = foodItem;
         this.mContext = mContext;
 
-        mStorageRef = FirebaseStorage.getInstance().getReference(); //get the storage reference from firebase
+        //mStorageRef = FirebaseStorage.getInstance().getReference(); //get the storage reference from firebase
     }
 
     @Override
@@ -67,39 +73,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.textViewPrice.setText(foodItem.get(position).price);
 
 
-        final File localFile = foodItem.get(position).foodPic; //getting the foodpic file from Meal
+        //final File localFile = foodItem.get(position).foodPic; //getting the foodpic file from Meal
         //with respect to the specific contact you want. Since position is passed into this function
         // to access Food Item for the position, do foodItem.get(position)
 
-        StorageReference foodRef = mStorageRef.child(foodItem.get(position).foodName); //reference for foodName
+        //StorageReference foodRef = mStorageRef.child(foodItem.get(position).foodName); //reference for foodName
 
-        foodRef.getFile(localFile)  //accessing the file from firebase storage
-                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        // Successfully downloaded data to local file
-                        // ...
-                        try{ //see if this works without an exception
-
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), Uri.fromFile(localFile)); //turn it into an image
-                            holder.imageViewFood.setImageBitmap(bitmap); //Setting the imageview in user_item.xml to the picture obtained
-
-                        }
-
-                        catch(IOException e){ //Catching some exception, making it so it doesn't just crash your app
-
-
-
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle failed download
-                // ...
-                Toast.makeText(mContext, exception.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
     }
 
@@ -111,15 +90,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return foodItem.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageView imageViewFood;
+    public class ViewHolder extends RecyclerView.ViewHolder  {
+        //ImageView imageViewFood;
         TextView textViewFoodItem, textViewRestaurant, textViewPrice;
         Button buttonSaveFood;
         RelativeLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageViewFood = itemView.findViewById(R.id.imageViewFood);
+            //imageViewFood = itemView.findViewById(R.id.imageViewFood);
             textViewFoodItem = itemView.findViewById(R.id.textViewFoodItem);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
             textViewRestaurant = itemView.findViewById(R.id.textViewRestaurant);
@@ -128,26 +107,53 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             parentLayout = itemView.findViewById(R.id.parent_layout);
 
-            buttonSaveFood.setOnClickListener(this);
+            //buttonSaveFood.setOnClickListener(this);
         }
 
-        @Override
+        /*@Override
         public void onClick(View view) {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            final DatabaseReference myRef = database.getReference("Liked Food");
+            final DatabaseReference myRef = database.getReference("Meal");
 
             if(view == buttonSaveFood){
-                String findLikedFoodItem = textViewFoodItem.getText().toString();
-                String findLikedFoodRestaurant = textViewFoodItem.getText().toString();
-                String findLikedFoodPrice = textViewFoodItem.getText().toString();
-                User likedFood = new User(); //not sure
+                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                String findEmail = user.getEmail();
 
-                myRef.push().setValue(likedFood);
 
-                //how to get an image
+                /*myRef.orderByChild("email").equalTo(findEmail).addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                        String myKey = dataSnapshot.getKey();
+                        myRef.child(myKey).child("savedmeals").push().setValue();
+
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
             }
-        }
+        }*/
     }
 }
 
- */
+

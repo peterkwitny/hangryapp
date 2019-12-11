@@ -1,4 +1,4 @@
-/*package com.example.hangryapp;
+package com.example.hangryapp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -22,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -34,46 +36,34 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         foodItem = new ArrayList<Meal>();
-        getFoodItem();
+       // foodItem.add(new Meal("Pizza", "Joes", "Dinner", "American", "5", false, false, false, false, false, ""));
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        recyclerViewAdapter = new RecyclerViewAdapter(foodItem, this);
-        recyclerView.setAdapter(recyclerViewAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference("Meal");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    foodItem.add(snapshot.getValue(Meal.class));
+                }
+
+
+                RecyclerView recyclerView = findViewById(R.id.recycler_view);
+                recyclerViewAdapter = new RecyclerViewAdapter(foodItem, ListActivity.this);
+                recyclerView.setAdapter(recyclerViewAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(ListActivity.this));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         buttonSwipeView = findViewById(R.id.buttonSwipeView);
         buttonSwipeView.setOnClickListener(this);
 
-    }
-
-    private void getFoodItem(){
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference contextRef = database.getReference("Meal");
-
-        contextRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                for (DataSnapshot child: dataSnapshot.getChildren()){
-                    Meal food = child.getValue(Meal.class);
-                    String findName = food.name;
-                    String findRestaurant = food.restaurant;
-                    String findPrice = food.price;
-
-                    foodItem.add(food);
-
-                }
-                recyclerViewAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-
-            }
-        });
     }
 
 
@@ -86,4 +76,4 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 }
-*/
+
