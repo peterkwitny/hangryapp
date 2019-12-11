@@ -87,7 +87,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         final DatabaseReference myRef = database.getReference("Meal");
 
 
-        myRef.orderByKey().limitToFirst(currentDisplay).addChildEventListener(new ChildEventListener() {
+    myRef.orderByKey().limitToFirst(currentDisplay).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
@@ -219,7 +219,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         if(view == buttonFilter){
             Intent filterIntent = new Intent(this, FilterActivity.class);
             startActivity(filterIntent);
-        } else if( view == buttonSave){
+        } else if(view == buttonSave){
             currentDisplay = currentDisplay + 1;
             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String findEmail = user.getEmail();
@@ -311,8 +311,6 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                     try {
                         localFile = File.createTempFile("image", "jpg");
 
-
-
                         picRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
@@ -331,7 +329,6 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                     catch(IOException e){
 
                     }
-
 
 
                     textViewFoodName.setText(findName);
