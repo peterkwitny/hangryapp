@@ -89,10 +89,10 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
 
     myRef.orderByKey().limitToFirst(currentDisplay).addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String s) {
 
 
-                Meal foundMeal = dataSnapshot.getValue(Meal.class);
+                Meal foundMeal = snapshot.getValue(Meal.class);
                 currentSavedMeal = foundMeal;
 
                 String findName = foundMeal.name;
@@ -212,14 +212,15 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         final DatabaseReference myRef = database.getReference("Meal");
         final DatabaseReference myRef2 = database.getReference("User");
 
-
+        if (view == buttonNope || view == buttonSave){
+            currentDisplay = currentDisplay +1;
+        }
 
 
         if(view == buttonFilter){
             Intent filterIntent = new Intent(this, FilterActivity.class);
             startActivity(filterIntent);
         } else if(view == buttonSave){
-            currentDisplay = currentDisplay + 1;
             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String findEmail = user.getEmail();
 
@@ -375,7 +376,6 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
             });
 
         } else if(view == buttonNope){
-            currentDisplay = currentDisplay + 1;
 
             myRef.orderByKey().limitToFirst(currentDisplay).addChildEventListener(new ChildEventListener() {
                 @Override
