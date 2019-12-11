@@ -119,6 +119,7 @@ public class LikedFoodActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         final ArrayList<Meal> savedMeals = new ArrayList<>();
+                        final ArrayList<Bitmap> myBitmap = new ArrayList<>();
 
 
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -139,9 +140,7 @@ public class LikedFoodActivity extends AppCompatActivity {
 
                                         try {
                                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(localFile));
-                                            imageView1.setImageBitmap(BitmapFactory.decodeFile(savedMeals.get(0).picReference));
-                                            imageView2.setImageBitmap(BitmapFactory.decodeFile(savedMeals.get(1).picReference));
-                                            imageView3.setImageBitmap(BitmapFactory.decodeFile(savedMeals.get(2).picReference));
+                                            myBitmap.add(bitmap);
 
 
                                         }
@@ -160,7 +159,6 @@ public class LikedFoodActivity extends AppCompatActivity {
                         }
 
 
-
                         textViewFoodItem1.setText(savedMeals.get(0).name);
                         textViewFoodItem2.setText(savedMeals.get(1).name);
                         textViewFoodItem3.setText(savedMeals.get(2).name);
@@ -173,6 +171,9 @@ public class LikedFoodActivity extends AppCompatActivity {
                         textViewPrice2.setText(savedMeals.get(1).price);
                         textViewPrice3.setText(savedMeals.get(2).price);
 
+                        imageView2.setImageBitmap(myBitmap.get(0));
+                        imageView2.setImageBitmap(myBitmap.get(1));
+                        imageView2.setImageBitmap(myBitmap.get(2));
 
 
                     }
