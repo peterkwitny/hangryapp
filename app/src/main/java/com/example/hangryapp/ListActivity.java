@@ -36,7 +36,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         foodItem = new ArrayList<Meal>();
-       // foodItem.add(new Meal("Pizza", "Joes", "Dinner", "American", "5", false, false, false, false, false, ""));
+
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference("Meal");
