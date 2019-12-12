@@ -60,7 +60,7 @@ public class RecyclerViewLikedFood extends RecyclerView.Adapter<RecyclerViewLike
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String findEmail = user.getEmail();
 
-        myRef.orderByChild("email").equalTo(findEmail).addChildEventListener(new ChildEventListener() {
+        myRef .orderByChild("email").equalTo(findEmail).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 final String foundKey = dataSnapshot.getKey();

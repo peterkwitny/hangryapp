@@ -16,9 +16,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FileDownloadTask;
@@ -51,13 +57,55 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        //Set the text of the viewholder from the previous function, onCreateViewHolder, to the name of the
-        //specific contact by accessing the specific position for that contact. //the textView is from the listitem_item xml
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference("Meal");
+        final DatabaseReference myRef2 = database.getReference("User");
 
 
         holder.textViewFoodItem.setText(foodItem.get(position).name);
         holder.textViewRestaurant.setText(foodItem.get(position).restaurant);
         holder.textViewPrice.setText(foodItem.get(position).price);
+        holder.buttonSaveFood.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                if(view == holder.buttonSaveFood){
+                    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    String findEmail = user.getEmail();
+
+                    myRef2.orderByChild("email").equalTo(findEmail).addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                            String editKey = dataSnapshot.getKey();
+                            myRef2.child(editKey).child("savedmeals").push().setValue( foodItem.get(position));
+
+                        }
+
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+
+            }
+        });
 
         StorageReference picRef = mStorageRef.child(foodItem.get(position).picReference); //reference for foodName
         final File localFile;
@@ -107,52 +155,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             parentLayout = itemView.findViewById(R.id.parent_layout_likedfood);
 
-            //buttonSaveFood.setOnClickListener(this);
+
         }
 
-        /*@Override
-        public void onClick(View view) {
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            final DatabaseReference myRef = database.getReference("Meal");
 
-            if(view == buttonSaveFood){
-                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                String findEmail = user.getEmail();
-
-
-                /*myRef.orderByChild("email").equalTo(findEmail).addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                        String myKey = dataSnapshot.getKey();
-                        myRef.child(myKey).child("savedmeals").push().setValue();
-
-                    }
-
-                    @Override
-                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-
-            }
-        }*/
     }
 }
 
