@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itemLanding"
+        android:title="Main Page" />
     <item
         android:id="@+id/itemLikedFood"
         android:title="Liked Food" />
@@ -7,10 +11,9 @@
         android:id="@+id/itemAddFood"
         android:title="Add Food" />
     <item
-        android:id="@+id/itemSettings"
-        android:title="Settings" />
-    <item
         android:id="@+id/itemFAQ"
         android:title="FAQ" />
-
+    <item
+        android:id="@+id/itemSettings"
+        android:title="Settings" />
 </menu>

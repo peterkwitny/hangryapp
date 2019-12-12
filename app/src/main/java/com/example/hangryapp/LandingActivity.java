@@ -1,18 +1,13 @@
 package com.example.hangryapp;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,28 +17,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ThrowOnExtraProperties;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 
 
 public class LandingActivity extends AppCompatActivity implements View.OnClickListener{
@@ -66,8 +53,8 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
 
 
         textViewFoodName = findViewById(R.id.textViewFoodName);
-        textViewRestaurant = findViewById(R.id.textViewRestaurant);
-        textViewPrice = findViewById(R.id.textViewPrice);
+        textViewRestaurant = findViewById(R.id.textViewSavedRestaurant);
+        textViewPrice = findViewById(R.id.textViewSavedPrice);
         textViewRestriction = findViewById(R.id.textViewRestriction);
         textViewRestriction2 = findViewById(R.id.textViewRestriction2);
         textViewRestriction3 = findViewById(R.id.textViewRestriction3);
@@ -77,7 +64,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         buttonSave = findViewById(R.id.buttonSave);
         buttonFilter = findViewById(R.id.buttonFilter);
         buttonListView = findViewById(R.id.buttonListView);
-        imageViewFood = findViewById(R.id.imageViewFood);
+        imageViewFood = findViewById(R.id.imageViewSavedFood);
 
         buttonListView.setOnClickListener(this);
         buttonSave.setOnClickListener(this);

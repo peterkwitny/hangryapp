@@ -4,39 +4,26 @@ package com.example.hangryapp;
 
 
 import android.content.Context;
-import android.content.ReceiverCallNotAllowedException;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.common.util.Base64Utils;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -66,6 +53,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         //Set the text of the viewholder from the previous function, onCreateViewHolder, to the name of the
         //specific contact by accessing the specific position for that contact. //the textView is from the listitem_item xml
+
 
         holder.textViewFoodItem.setText(foodItem.get(position).name);
         holder.textViewRestaurant.setText(foodItem.get(position).restaurant);
@@ -110,14 +98,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageViewFood = itemView.findViewById(R.id.imageViewFood);
-            textViewFoodItem = itemView.findViewById(R.id.textViewFoodItem);
-            textViewPrice = itemView.findViewById(R.id.textViewPrice);
-            textViewRestaurant = itemView.findViewById(R.id.textViewRestaurant);
+            imageViewFood = itemView.findViewById(R.id.imageViewSavedFood);
+            textViewFoodItem = itemView.findViewById(R.id.textViewSavedMeal);
+            textViewPrice = itemView.findViewById(R.id.textViewSavedPrice);
+            textViewRestaurant = itemView.findViewById(R.id.textViewSavedRestaurant);
 
             buttonSaveFood = itemView.findViewById(R.id.buttonSaveFood);
 
-            parentLayout = itemView.findViewById(R.id.parent_layout);
+            parentLayout = itemView.findViewById(R.id.parent_layout_likedfood);
 
             //buttonSaveFood.setOnClickListener(this);
         }

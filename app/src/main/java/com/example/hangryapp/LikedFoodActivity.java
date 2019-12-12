@@ -3,6 +3,8 @@ package com.example.hangryapp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -40,16 +42,9 @@ import java.util.ArrayList;
 public class LikedFoodActivity extends AppCompatActivity {
 
 
-    ImageView imageView1, imageView2, imageView3;
-    TextView textViewFoodItem1, textViewFoodItem2,textViewFoodItem3;
-    TextView textViewRest1, textViewRest2, textViewRest3;
-    TextView textViewPrice1, textViewPrice2, textViewPrice3;
+    private ArrayList<Meal> savedMeals; //Creating a new arraylist of food item for the adapter to display
+    private RecyclerViewLikedFood recyclerViewLikedFood;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final DatabaseReference myRef = database.getReference("User");
-
-    private Context mContext;
-    private StorageReference mStorageRef;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,23 +55,27 @@ public class LikedFoodActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.itemSettings){
+        if (item.getItemId() == R.id.itemSettings) {
 
             Intent settingsIntent = new Intent(this, SettingsActivity.class);
             startActivity(settingsIntent);
 
-        } else if(item.getItemId() == R.id.itemLikedFood){
+        } else if (item.getItemId() == R.id.itemLikedFood) {
 
             Toast.makeText(this, "You are already in Liked Food page", Toast.LENGTH_SHORT).show();
 
-        } else if(item.getItemId() == R.id.itemFAQ){
+        } else if (item.getItemId() == R.id.itemFAQ) {
 
             Intent faqIntent = new Intent(this, FAQActivity.class);
             startActivity(faqIntent);
 
-        }   else if (item.getItemId() == R.id.itemAddFood){
+        } else if (item.getItemId() == R.id.itemAddFood) {
             Intent addFoodIntent = new Intent(this, AddFoodActivity.class);
             startActivity(addFoodIntent);
+
+        } else if(item.getItemId() == R.id.itemLanding){
+            Intent landingIntent = new Intent(this, LandingActivity.class);
+            startActivity(landingIntent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -87,116 +86,23 @@ public class LikedFoodActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liked_food);
 
-        imageView1 = findViewById(R.id.imageView1);
-        imageView2 = findViewById(R.id.imageView2);
-        imageView3 = findViewById(R.id.imageView3);
-
-        textViewFoodItem1 = findViewById(R.id.textViewFoodItem1);
-        textViewFoodItem2 = findViewById(R.id.textViewFoodItem2);
-        textViewFoodItem3 = findViewById(R.id.textViewFoodItem3);
-
-        textViewRest1 = findViewById(R.id.textViewRest1);
-        textViewRest2 = findViewById(R.id.textViewRest2);
-        textViewRest3 = findViewById(R.id.textViewRest3);
-
-        textViewPrice1 = findViewById(R.id.textViewPrice1);
-        textViewPrice2 = findViewById(R.id.textViewPrice2);
-        textViewPrice3 = findViewById(R.id.textViewPrice3);
-
-        //this.mContext = mContext;
-        mStorageRef = FirebaseStorage.getInstance().getReference();
-
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        final String findEmail = user.getEmail();
+        savedMeals = new ArrayList<Meal>();
 
 
-        myRef.orderByChild("email").equalTo(findEmail).addChildEventListener(new ChildEventListener() {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference("Meal");
+
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                final String foundKey = dataSnapshot.getKey();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    savedMeals.add(snapshot.getValue(Meal.class));
+                }
 
-                myRef.child(foundKey).child("savedmeals").orderByKey().limitToLast(3).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        final ArrayList<Meal> savedMeals = new ArrayList<>();
-                        final ArrayList<Bitmap> myBitmap = new ArrayList<>();
-
-
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            Meal foundMeal = snapshot.getValue(Meal.class);
-                            savedMeals.add(foundMeal);
-                            final String picRefer = foundMeal.picReference;
-                            StorageReference picRef = mStorageRef.child(picRefer);
-
-                            final File localFile;
-                            try {
-                                localFile = File.createTempFile("image", "jpg");
-
-
-
-                                picRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-
-                                        try {
-                                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(localFile));
-                                            myBitmap.add(bitmap);
-
-
-                                        }
-                                        catch(IOException e){
-
-                                        }
-                                    }
-                                });
-
-                            }
-                            catch(IOException e){
-
-                            }
-
-
-                        }
-
-
-                        textViewFoodItem1.setText(savedMeals.get(0).name);
-                        textViewFoodItem2.setText(savedMeals.get(1).name);
-                        textViewFoodItem3.setText(savedMeals.get(2).name);
-
-                        textViewRest1.setText(savedMeals.get(0).restaurant);
-                        textViewRest2.setText(savedMeals.get(1).restaurant);
-                        textViewRest3.setText(savedMeals.get(2).restaurant);
-
-                        textViewPrice1.setText(savedMeals.get(0).price);
-                        textViewPrice2.setText(savedMeals.get(1).price);
-                        textViewPrice3.setText(savedMeals.get(2).price);
-
-                        imageView2.setImageBitmap(myBitmap.get(0));
-                        imageView2.setImageBitmap(myBitmap.get(1));
-                        imageView2.setImageBitmap(myBitmap.get(2));
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-            }
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                RecyclerView recyclerView = findViewById(R.id.likedFood_RecyclerView);
+                recyclerViewLikedFood = new RecyclerViewLikedFood(savedMeals, LikedFoodActivity.this);
+                recyclerView.setAdapter(recyclerViewLikedFood);
+                recyclerView.setLayoutManager(new LinearLayoutManager(LikedFoodActivity.this));
             }
 
             @Override
@@ -206,9 +112,6 @@ public class LikedFoodActivity extends AppCompatActivity {
         });
 
 
-
-
     }
+
 }
-
-
