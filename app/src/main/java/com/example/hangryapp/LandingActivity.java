@@ -91,14 +91,12 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
        myRef.orderByKey().limitToFirst(currentDisplay).addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               Toast.makeText(LandingActivity.this, String.valueOf(dataSnapshot.getChildrenCount()), Toast.LENGTH_SHORT).show();
+             //  Toast.makeText(LandingActivity.this, String.valueOf(dataSnapshot.getChildrenCount()), Toast.LENGTH_SHORT).show();
                Meal foundMeal = new Meal();
                for(DataSnapshot snap: dataSnapshot.getChildren()){
                    foundMeal = snap.getValue(Meal.class);
                    currentSavedMeal = foundMeal;
                }
-
-
 
 
                String findName = foundMeal.name;
@@ -217,6 +215,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
             String findEmail = user.getEmail();
 
 
+            Toast.makeText(this, "Added to Liked Foods!", Toast.LENGTH_SHORT).show();
        /*     myRef2.orderByChild("email").equalTo(findEmail).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -296,7 +295,6 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                             Boolean findDF = currentSavedMeal.dairyFree;
                             Boolean findNF = currentSavedMeal.nutFree;
 
-
                             StorageReference picRef = mStorageRef.child(picReference);
                             final File localFile;
                     try {
@@ -340,7 +338,6 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                     if (findNF == true) {
                         textViewRestriction5.setText("Nut Free");
                     }
-
 
                 }
 
