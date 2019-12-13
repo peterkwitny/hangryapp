@@ -90,19 +90,48 @@ public class LikedFoodActivity extends AppCompatActivity {
 
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("Meal");
+        final DatabaseReference myRef = database.getReference("User");
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final String findEmail = user.getEmail();
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.orderByChild("email").equalTo(findEmail).addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    savedMeals.add(snapshot.getValue(Meal.class));
-                }
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                String key = dataSnapshot.getKey();
+                myRef.child(key).child("savedmeals").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            savedMeals.add(snapshot.getValue(Meal.class));
+                        }
 
-                RecyclerView recyclerView = findViewById(R.id.likedFood_RecyclerView);
-                recyclerViewLikedFood = new RecyclerViewLikedFood(savedMeals, LikedFoodActivity.this);
-                recyclerView.setAdapter(recyclerViewLikedFood);
-                recyclerView.setLayoutManager(new LinearLayoutManager(LikedFoodActivity.this));
+                        RecyclerView recyclerView = findViewById(R.id.likedFood_RecyclerView);
+                        recyclerViewLikedFood = new RecyclerViewLikedFood(savedMeals, LikedFoodActivity.this);
+                        recyclerView.setAdapter(recyclerViewLikedFood);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(LikedFoodActivity.this));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
             }
 
             @Override
