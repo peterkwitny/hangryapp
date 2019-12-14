@@ -31,6 +31,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class LandingActivity extends AppCompatActivity implements View.OnClickListener{
@@ -214,7 +215,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
 
                     //Meal currentMeal = dataSnapshot.getValue(Meal.class);
                         *//*
-                        
+
 
                          *//*
 
@@ -276,9 +277,11 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                             Boolean findNF = currentSavedMeal.nutFree;
 
                             //NEED HELP HERE
-                         //   new LikedFoodActivity().textViewFoodItem1.setText(currentSavedMeal.name);
-                        //    new LikedFoodActivity().textViewRest1.setText(currentSavedMeal.restaurant);
-                        //    new LikedFoodActivity().textViewPrice1.setText(currentSavedMeal.price);
+                            User foundUser = dataSnapshot.getValue(User.class);
+                            ArrayList<Meal> findSaveMeals = foundUser.savedmeals;
+                            findSaveMeals.add(currentSavedMeal);
+                            myRef3.child("savedmeals").push().setValue(currentSavedMeal);
+
 
                             StorageReference picRef = mStorageRef.child(picReference);
                             final File localFile;
