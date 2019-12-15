@@ -1,6 +1,7 @@
 package com.example.hangryapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -203,6 +205,33 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String findEmail = user.getEmail();
 
+            myRef2.orderByChild("email").equalTo(findEmail).addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    String editKey = dataSnapshot.getKey();
+                    myRef2.child(editKey).child("savedmeals").push().setValue(currentSavedMeal);
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
             Toast.makeText(this, "Added to Liked Foods!", Toast.LENGTH_SHORT).show();
        /*     myRef2.orderByChild("email").equalTo(findEmail).addChildEventListener(new ChildEventListener() {
