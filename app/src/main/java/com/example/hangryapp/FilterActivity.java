@@ -4,8 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -36,7 +36,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     Boolean switchVegTrue, switchVeganTrue,switchDFTrue, switchNFTrue, switchGFTrue;
     TextView textViewPriceMinimum, textViewPriceMaximum, getTextViewPriceMaximumValue, textView0, textView50, textView100, textViewTitleFilter;
     EditText editTextCusine1, editTextCusine2;
-    Button buttonSetFilters;
+    Button buttonSetFilters, buttonBack;
 
     Double dbPricePercent = 0.20;
 
@@ -62,7 +62,11 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         seekBarPrice = findViewById(R.id.seekBarPrice);
 
         buttonSetFilters = findViewById(R.id.buttonSetFilters);
+        buttonBack = findViewById(R.id.buttonBack);
+
+
         buttonSetFilters.setOnClickListener(this);
+        buttonBack.setOnClickListener(this);
 
         seekBarPrice.setOnSeekBarChangeListener(this);
 
@@ -188,6 +192,9 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             });
 
             Toast.makeText(this, "User Filters Set", Toast.LENGTH_SHORT).show();
+        } else if (view == buttonBack){
+            Intent backIntent = new Intent(this, LandingActivity.class);
+            startActivity(backIntent);
         }
     }
 
