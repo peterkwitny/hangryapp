@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener{
     TextView SettingTitle, AccountSettingsHeader, LegalHeader;
-    Button NotificationPageRedirect, changePasswrodRedirect, buttonLogOut;
+    Button NotificationPageRedirect, changePasswrodRedirect, buttonLogOut, buttonB2H;
 
     private FirebaseAuth mAuth;
 
@@ -28,10 +28,12 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         NotificationPageRedirect = findViewById(R.id.NotificationPageRedirect);
         changePasswrodRedirect = findViewById(R.id.changePasswrodRedirect);
         buttonLogOut = findViewById(R.id.buttonLogOut);
+        buttonB2H = findViewById(R.id.buttonB2H);
 
         buttonLogOut.setOnClickListener(this);
         NotificationPageRedirect.setOnClickListener(this);
         changePasswrodRedirect.setOnClickListener(this);
+        buttonB2H.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
     }
@@ -47,6 +49,10 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             startActivity(landingIntent);
         }else if(view == changePasswrodRedirect) {
             Toast.makeText(this, "Functionality In Progress, Come back in 1 year", Toast.LENGTH_SHORT).show();
+        }
+        else if (view == buttonB2H){
+            Intent landingIntent = new Intent(this, LandingActivity.class);
+            startActivity(landingIntent);
         }
     }
 }

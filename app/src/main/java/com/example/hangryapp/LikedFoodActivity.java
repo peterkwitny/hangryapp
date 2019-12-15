@@ -69,10 +69,6 @@ public class LikedFoodActivity extends AppCompatActivity {
             Intent faqIntent = new Intent(this, FAQActivity.class);
             startActivity(faqIntent);
 
-        } else if (item.getItemId() == R.id.itemAddFood) {
-            Intent addFoodIntent = new Intent(this, AddFoodActivity.class);
-            startActivity(addFoodIntent);
-
         } else if(item.getItemId() == R.id.itemLanding){
             Intent landingIntent = new Intent(this, LandingActivity.class);
             startActivity(landingIntent);

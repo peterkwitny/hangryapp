@@ -30,6 +30,11 @@ public class FAQActivity extends AppCompatActivity implements View.OnClickListen
         editTextFaqAnswerTwo = findViewById(R.id.editTextFaqAnswerTwo);
         editText3 = findViewById(R.id.editText3);
 
+        buttonGoBackToLanding.setOnClickListener(this);
+
+
+
+
     }
 
     @Override
