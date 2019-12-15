@@ -88,7 +88,6 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                    currentSavedMeal = foundMeal;
                }
 
-
                String findName = foundMeal.name;
                String findRestaurant = foundMeal.restaurant;
                String findPrice = foundMeal.price;
@@ -124,7 +123,6 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                catch(IOException e){
 
                }
-
 
 
                textViewFoodName.setText(findName);
@@ -202,6 +200,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         if(view == buttonFilter){
             Intent filterIntent = new Intent(this, FilterActivity.class);
             startActivity(filterIntent);
+
         } else if(view == buttonSave){
             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String findEmail = user.getEmail();
@@ -210,87 +209,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     String editKey = dataSnapshot.getKey();
-                    final User u = dataSnapshot.getValue(User.class);
                     myRef2.child(editKey).child("savedmeals").push().setValue(currentSavedMeal);
-
-                    myRef3.orderByKey().limitToFirst(currentDisplay).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                            for(DataSnapshot snap: dataSnapshot.getChildren()){
-
-                                currentSavedMeal = snap.getValue(Meal.class);
-
-                                if(currentSavedMeal.vegan == u.vegan && currentSavedMeal.dairyFree == u.vegan
-                                    && currentSavedMeal.vegetarian == u.vegetarian && currentSavedMeal.dairyFree == u.dairyfree
-                                    && currentSavedMeal.nutFree == u.nutfree/*if found meal matches user preferences*/){
-                                    break;
-                                }
-                            }
-
-                            String findName = currentSavedMeal.name;
-                            String findRestaurant = currentSavedMeal.restaurant;
-                            String findPrice = currentSavedMeal.price;
-                            String picReference = currentSavedMeal.picReference;
-                            Boolean findVegan = currentSavedMeal.vegan;
-                            Boolean findVegetarian = currentSavedMeal.vegetarian;
-                            Boolean findGF = currentSavedMeal.glutenFree;
-                            Boolean findDF = currentSavedMeal.dairyFree;
-                            Boolean findNF = currentSavedMeal.nutFree;
-
-                            StorageReference picRef = mStorageRef.child(picReference);
-                            final File localFile;
-                            try {
-                                localFile = File.createTempFile("image", "jpg");
-
-                                picRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-
-                                        try {
-                                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(localFile));
-                                            imageViewFood.setImageBitmap(bitmap);
-                                        }
-                                        catch(IOException e){
-
-                                        }
-                                    }
-                                });
-
-                            }
-                            catch(IOException e){
-
-                            }
-
-
-                            textViewFoodName.setText(findName);
-                            textViewRestaurant.setText(findRestaurant);
-                            textViewPrice.setText(findPrice);
-                            if (findVegan == true) {
-                                textViewRestriction.setText("Vegan");
-                            }
-                            if (findVegetarian == true) {
-                                textViewRestriction2.setText("Vegetarian");
-                            }
-                            if (findGF == true) {
-                                textViewRestriction3.setText("Gluten Free");
-                            }
-                            if (findDF == true) {
-                                textViewRestriction4.setText("Dairy Free");
-                            }
-                            if (findNF == true) {
-                                textViewRestriction5.setText("Nut Free");
-                            }
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-
-
-                    });
                 }
 
                 @Override
@@ -315,163 +234,67 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
             });
 
             Toast.makeText(this, "Added to Liked Foods!", Toast.LENGTH_SHORT).show();
-       /*     myRef2.orderByChild("email").equalTo(findEmail).addChildEventListener(new ChildEventListener() {
+
+            myRef3.orderByKey().limitToFirst(currentDisplay).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    //User foundUser = dataSnapshot.getValue(User.class);
-                    //ArrayList<Meal> findSaveMeals = foundUser.savedmeals;
-                    String editKey = dataSnapshot.getKey();
-
-                    //Meal currentMeal = dataSnapshot.getValue(Meal.class);
-                        *//*
-
-
-                         *//*
-
-
-
-                    //findSaveMeals.add(currentMeal);
-
-                    myRef2.child(editKey).child("savedmeals").push().setValue(currentSavedMeal);
-
-                        *//* add to likedfood
-                        new LikedFoodActivity().textViewFoodItem1.setText(thisMeal.name);
-                        new LikedFoodActivity().textViewRest1.setText(thisMeal.restaurant);
-                        new LikedFoodActivity().textViewPrice1.setText(thisMeal.price);
-                         *//*
-
-
-
-                }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });*/
-
-
-
-
-
-          /*  myRef3.orderByKey().limitToFirst(currentDisplay).addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String s) {
-
-                    int counter = 0;
-                    for(DataSnapshot snap: snapshot.getChildren()){
-                        counter = counter + 1;
-                        if(counter == currentDisplay){
-                            Meal currentMeal = snapshot.getValue(Meal.class);
-                            currentSavedMeal = currentMeal;
-
-                            String findName = currentSavedMeal.name;
-                            String findRestaurant = currentSavedMeal.restaurant;
-                            String findPrice = currentSavedMeal.price;
-                            String picReference = currentSavedMeal.picReference;
-                            Boolean findVegan = currentSavedMeal.vegan;
-                            Boolean findVegetarian = currentSavedMeal.vegetarian;
-                            Boolean findGF = currentSavedMeal.glutenFree;
-                            Boolean findDF = currentSavedMeal.dairyFree;
-                            Boolean findNF = currentSavedMeal.nutFree;
-
-
-                            StorageReference picRef = mStorageRef.child(picReference);
-                            final File localFile;
-                            try {
-                                localFile = File.createTempFile("image", "jpg");
-
-                                picRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-
-                                        try {
-                                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(localFile));
-                                            imageViewFood.setImageBitmap(bitmap);
-                                        }
-                                        catch(IOException e){
-
-                                        }
-                                    }
-                                });
-
-                            }
-                            catch(IOException e){
-
-                            }
-
-
-                            textViewFoodName.setText(findName);
-                            textViewRestaurant.setText(findRestaurant);
-                            textViewPrice.setText(findPrice);
-                            if (findVegan == true) {
-                                textViewRestriction.setText("Vegan");
-                            }
-                            if (findVegetarian == true) {
-                                textViewRestriction2.setText("Vegetarian");
-                            }
-                            if (findGF == true) {
-                                textViewRestriction3.setText("Gluten Free");
-                            }
-                            if (findDF == true) {
-                                textViewRestriction4.setText("Dairy Free");
-                            }
-                            if (findNF == true) {
-                                textViewRestriction5.setText("Nut Free");
-                            }
-
-
-                        }
-
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot snap: dataSnapshot.getChildren()){
+                        currentSavedMeal = snap.getValue(Meal.class);
                     }
-
-
-
-
-
-
-                    Toast.makeText(LandingActivity.this, "Added to Liked Foods!", Toast.LENGTH_SHORT).show();
+                    String findName = currentSavedMeal.name;
+                    String findRestaurant = currentSavedMeal.restaurant;
+                    String findPrice = currentSavedMeal.price;
+                    String picReference = currentSavedMeal.picReference;
+                    Boolean findVegan = currentSavedMeal.vegan;
+                    Boolean findVegetarian = currentSavedMeal.vegetarian;
+                    Boolean findGF = currentSavedMeal.glutenFree;
+                    Boolean findDF = currentSavedMeal.dairyFree;
+                    Boolean findNF = currentSavedMeal.nutFree;
+                    StorageReference picRef = mStorageRef.child(picReference);
+                    final File localFile;
+                    try {
+                        localFile = File.createTempFile("image", "jpg");
+                        picRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                try {
+                                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(localFile));
+                                    imageViewFood.setImageBitmap(bitmap);
+                                }
+                                catch(IOException e){
+                                }
+                            }
+                        });
+                    }
+                    catch(IOException e){
+                    }
+                    textViewFoodName.setText(findName);
+                    textViewRestaurant.setText(findRestaurant);
+                    textViewPrice.setText(findPrice);
+                    if (findVegan == true) {
+                        textViewRestriction.setText("Vegan");
+                    }
+                    if (findVegetarian == true) {
+                        textViewRestriction2.setText("Vegetarian");
+                    }
+                    if (findGF == true) {
+                        textViewRestriction3.setText("Gluten Free");
+                    }
+                    if (findDF == true) {
+                        textViewRestriction4.setText("Dairy Free");
+                    }
+                    if (findNF == true) {
+                        textViewRestriction5.setText("Nut Free");
+                    }
                 }
-
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
                 }
-            });*/
+            });
+
+
 
         } else if(view == buttonNope){
-
 
             myRef3.orderByKey().limitToFirst(currentDisplay).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -541,164 +364,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 }
             });
 
-  /*          myRef3.orderByKey().limitToFirst(currentDisplay).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Meal newMeal = snapshot.getValue(Meal.class);
 
-
-                    String findName = newMeal.name;
-                    String findRestaurant = newMeal.restaurant;
-                    String findPrice = newMeal.price;
-                    String picReference = newMeal.picReference;
-                    Boolean findVegan = newMeal.vegan;
-                    Boolean findVegetarian = newMeal.vegetarian;
-                    Boolean findGF = newMeal.glutenFree;
-                    Boolean findDF = newMeal.dairyFree;
-                    Boolean findNF = newMeal.nutFree;
-
-                    StorageReference picRef = mStorageRef.child(picReference);
-                    final File localFile;
-                    try {
-                        localFile = File.createTempFile("image", "jpg");
-
-                        picRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-
-                                try {
-                                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(localFile));
-                                    imageViewFood.setImageBitmap(bitmap);
-                                }
-                                catch(IOException e){
-
-                                }
-                            }
-                        });
-
-                    }
-                    catch(IOException e){
-
-                    }
-
-                    textViewFoodName.setText(findName);
-                    textViewRestaurant.setText(findRestaurant);
-                    textViewPrice.setText(findPrice);
-                    if (findVegan == true) {
-                        textViewRestriction.setText("Vegan");
-                    }
-                    if (findVegetarian == true) {
-                        textViewRestriction2.setText("Vegetarian");
-                    }
-                    if (findGF == true) {
-                        textViewRestriction3.setText("Gluten Free");
-                    }
-                    if (findDF == true) {
-                        textViewRestriction4.setText("Dairy Free");
-                    }
-                    if (findNF == true) {
-                        textViewRestriction5.setText("Nut Free");
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-*/
-
-
-
-/*            myRef3.orderByKey().limitToFirst(currentDisplay).addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String s) {
-                    Toast.makeText(LandingActivity.this, "Child Called", Toast.LENGTH_SHORT).show();
-
-                    Meal newMeal = snapshot.getValue(Meal.class);
-
-
-                    String findName = newMeal.name;
-                    String findRestaurant = newMeal.restaurant;
-                    String findPrice = newMeal.price;
-                    String picReference = newMeal.picReference;
-                    Boolean findVegan = newMeal.vegan;
-                    Boolean findVegetarian = newMeal.vegetarian;
-                    Boolean findGF = newMeal.glutenFree;
-                    Boolean findDF = newMeal.dairyFree;
-                    Boolean findNF = newMeal.nutFree;
-
-
-                    //Toast.makeText(LandingActivity.this, picReference, Toast.LENGTH_SHORT).show();
-
-                    StorageReference picRef = mStorageRef.child(picReference);
-                    final File localFile;
-                    try {
-                        localFile = File.createTempFile("image", "jpg");
-
-                        picRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-
-                                try {
-                                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(localFile));
-                                    imageViewFood.setImageBitmap(bitmap);
-                                }
-                                catch(IOException e){
-
-                                }
-                            }
-                        });
-
-                    }
-                    catch(IOException e){
-
-                    }
-                    Toast.makeText(LandingActivity.this, "Child Loaded", Toast.LENGTH_SHORT).show();
-
-
-                    textViewFoodName.setText(findName);
-                    textViewRestaurant.setText(findRestaurant);
-                    textViewPrice.setText(findPrice);
-                    if (findVegan == true) {
-                        textViewRestriction.setText("Vegan");
-                    }
-                    if (findVegetarian == true) {
-                        textViewRestriction2.setText("Vegetarian");
-                    }
-                    if (findGF == true) {
-                        textViewRestriction3.setText("Gluten Free");
-                    }
-                    if (findDF == true) {
-                        textViewRestriction4.setText("Dairy Free");
-                    }
-                    if (findNF == true) {
-                        textViewRestriction5.setText("Nut Free");
-                    }
-
-                }
-
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });*/
 
         }else if(view == buttonListView){
             Intent listViewIntent = new Intent(LandingActivity.this, ListActivity.class);
