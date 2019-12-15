@@ -210,7 +210,87 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     String editKey = dataSnapshot.getKey();
+                    final User u = dataSnapshot.getValue(User.class);
                     myRef2.child(editKey).child("savedmeals").push().setValue(currentSavedMeal);
+
+                    myRef3.orderByKey().limitToFirst(currentDisplay).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            for(DataSnapshot snap: dataSnapshot.getChildren()){
+
+                                currentSavedMeal = snap.getValue(Meal.class);
+
+                                if(currentSavedMeal.vegan == u.vegan && currentSavedMeal.dairyFree == u.vegan
+                                    && currentSavedMeal.vegetarian == u.vegetarian && currentSavedMeal.dairyFree == u.dairyfree
+                                    && currentSavedMeal.nutFree == u.nutfree/*if found meal matches user preferences*/){
+                                    break;
+                                }
+                            }
+
+                            String findName = currentSavedMeal.name;
+                            String findRestaurant = currentSavedMeal.restaurant;
+                            String findPrice = currentSavedMeal.price;
+                            String picReference = currentSavedMeal.picReference;
+                            Boolean findVegan = currentSavedMeal.vegan;
+                            Boolean findVegetarian = currentSavedMeal.vegetarian;
+                            Boolean findGF = currentSavedMeal.glutenFree;
+                            Boolean findDF = currentSavedMeal.dairyFree;
+                            Boolean findNF = currentSavedMeal.nutFree;
+
+                            StorageReference picRef = mStorageRef.child(picReference);
+                            final File localFile;
+                            try {
+                                localFile = File.createTempFile("image", "jpg");
+
+                                picRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+
+                                        try {
+                                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(localFile));
+                                            imageViewFood.setImageBitmap(bitmap);
+                                        }
+                                        catch(IOException e){
+
+                                        }
+                                    }
+                                });
+
+                            }
+                            catch(IOException e){
+
+                            }
+
+
+                            textViewFoodName.setText(findName);
+                            textViewRestaurant.setText(findRestaurant);
+                            textViewPrice.setText(findPrice);
+                            if (findVegan == true) {
+                                textViewRestriction.setText("Vegan");
+                            }
+                            if (findVegetarian == true) {
+                                textViewRestriction2.setText("Vegetarian");
+                            }
+                            if (findGF == true) {
+                                textViewRestriction3.setText("Gluten Free");
+                            }
+                            if (findDF == true) {
+                                textViewRestriction4.setText("Dairy Free");
+                            }
+                            if (findNF == true) {
+                                textViewRestriction5.setText("Nut Free");
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+
+
+                    });
                 }
 
                 @Override
@@ -286,85 +366,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
             });*/
 
 
-            myRef3.orderByKey().limitToFirst(currentDisplay).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                            for(DataSnapshot snap: dataSnapshot.getChildren()){
-                                currentSavedMeal = snap.getValue(Meal.class);
-
-                            }
-
-                            String findName = currentSavedMeal.name;
-                            String findRestaurant = currentSavedMeal.restaurant;
-                            String findPrice = currentSavedMeal.price;
-                            String picReference = currentSavedMeal.picReference;
-                            Boolean findVegan = currentSavedMeal.vegan;
-                            Boolean findVegetarian = currentSavedMeal.vegetarian;
-                            Boolean findGF = currentSavedMeal.glutenFree;
-                            Boolean findDF = currentSavedMeal.dairyFree;
-                            Boolean findNF = currentSavedMeal.nutFree;
-
-                            //NEED HELP HERE
-                            User foundUser = dataSnapshot.getValue(User.class);
-                            ArrayList<Meal> findSaveMeals = foundUser.savedmeals;
-                            findSaveMeals.add(currentSavedMeal);
-                            myRef3.child("savedmeals").push().setValue(currentSavedMeal);
-
-
-                            StorageReference picRef = mStorageRef.child(picReference);
-                            final File localFile;
-                    try {
-                        localFile = File.createTempFile("image", "jpg");
-
-                        picRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-
-                                try {
-                                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(localFile));
-                                    imageViewFood.setImageBitmap(bitmap);
-                                }
-                                catch(IOException e){
-
-                                }
-                            }
-                        });
-
-                    }
-                    catch(IOException e){
-
-                    }
-
-
-                    textViewFoodName.setText(findName);
-                    textViewRestaurant.setText(findRestaurant);
-                    textViewPrice.setText(findPrice);
-                    if (findVegan == true) {
-                        textViewRestriction.setText("Vegan");
-                    }
-                    if (findVegetarian == true) {
-                        textViewRestriction2.setText("Vegetarian");
-                    }
-                    if (findGF == true) {
-                        textViewRestriction3.setText("Gluten Free");
-                    }
-                    if (findDF == true) {
-                        textViewRestriction4.setText("Dairy Free");
-                    }
-                    if (findNF == true) {
-                        textViewRestriction5.setText("Nut Free");
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-
-
-            });
 
 
           /*  myRef3.orderByKey().limitToFirst(currentDisplay).addChildEventListener(new ChildEventListener() {
