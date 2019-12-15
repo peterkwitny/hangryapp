@@ -20,6 +20,7 @@
         <activity android:name=".PreferenceActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LandingActivity" />
+        <activity android:name=".ListActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
