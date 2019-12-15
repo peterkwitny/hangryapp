@@ -33,6 +33,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class LandingActivity extends AppCompatActivity implements View.OnClickListener{
@@ -243,16 +244,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
 
                     //Meal currentMeal = dataSnapshot.getValue(Meal.class);
                         *//*
-                        String name = thisMeal.name;
-                        String restaurant = thisMeal.restaurant;
-                        String mealtime = thisMeal.mealtime;
-                        String cuisine = thisMeal.cuisine;
-                        String price = thisMeal.price;
-                        Boolean vegan = thisMeal.vegan;
-                        Boolean glutenFree = thisMeal.glutenFree;
-                        Boolean vegetarian = thisMeal.vegetarian;
-                        Boolean dairyFree = thisMeal.dairyFree;
-                        Boolean nutFree = thisMeal.nutFree;
+
 
                          *//*
 
@@ -313,6 +305,13 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                             Boolean findDF = currentSavedMeal.dairyFree;
                             Boolean findNF = currentSavedMeal.nutFree;
 
+                            //NEED HELP HERE
+                            User foundUser = dataSnapshot.getValue(User.class);
+                            ArrayList<Meal> findSaveMeals = foundUser.savedmeals;
+                            findSaveMeals.add(currentSavedMeal);
+                            myRef3.child("savedmeals").push().setValue(currentSavedMeal);
+
+
                             StorageReference picRef = mStorageRef.child(picReference);
                             final File localFile;
                     try {
@@ -363,6 +362,8 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
+
+
             });
 
 
