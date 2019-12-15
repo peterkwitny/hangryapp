@@ -172,11 +172,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         }else if (item.getItemId() == R.id.itemLanding) {
             Toast.makeText(this, "You are already in the main page", Toast.LENGTH_SHORT).show();
         }
-        else if(item.getItemId() == R.id.itemAddFood){
-            Intent profileIntent = new Intent(this, AddFoodActivity.class);
-            startActivity(profileIntent);
-
-        }else if(item.getItemId() == R.id.itemFAQ){
+       else if(item.getItemId() == R.id.itemFAQ){
             Intent settingsIntent = new Intent(this, FAQActivity.class);
             startActivity(settingsIntent);
         }else if(item.getItemId() == R.id.itemSettings){
