@@ -8,9 +8,6 @@
         android:id="@+id/itemLikedFood"
         android:title="Liked Food" />
     <item
-        android:id="@+id/itemAddFood"
-        android:title="Add Food" />
-    <item
         android:id="@+id/itemFAQ"
         android:title="FAQ" />
     <item
