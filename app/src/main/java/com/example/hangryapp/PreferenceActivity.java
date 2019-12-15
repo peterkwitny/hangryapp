@@ -22,7 +22,7 @@ public class PreferenceActivity extends AppCompatActivity  implements View.OnCli
 
     Switch switchVeganUser, switchGlutenFreeUser, switchVegetarianUser, switchDairyFreeUser, switchNutFreeUser;
     Button buttonAddPreferences;
-    Boolean switchVeganUserChecked, switchGlutenFreeUserChecked, switchVegetarianUserChecked, switchDairyFreeUserChecked, switchNutFreeUserChecked;
+    Boolean switchVeganUserChecked = false, switchGlutenFreeUserChecked = false, switchVegetarianUserChecked = false, switchDairyFreeUserChecked = false, switchNutFreeUserChecked = false;
 
 
     @Override

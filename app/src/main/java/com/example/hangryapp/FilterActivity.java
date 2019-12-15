@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -33,7 +35,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
 
     SeekBar seekBarPrice;
     Switch switchVeg, switchVegan, switchDF, switchNF, switchGF;
-    Boolean switchVegTrue, switchVeganTrue,switchDFTrue, switchNFTrue, switchGFTrue;
+    Boolean switchVegTrue = false, switchVeganTrue = false,switchDFTrue = false, switchNFTrue = false, switchGFTrue = false;
     TextView textViewPriceMinimum, textViewPriceMaximum, getTextViewPriceMaximumValue, textView0, textView50, textView100, textViewTitleFilter;
     EditText editTextCusine1, editTextCusine2;
     Button buttonSetFilters;
@@ -58,6 +60,8 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         textView50 = findViewById(R.id.textView50);
         textView100 = findViewById(R.id.textView100);
         textViewTitleFilter = findViewById(R.id.textViewTitleFilter);
+        editTextCusine1 = findViewById(R.id.editTextCusine1);
+        editTextCusine2 = findViewById(R.id.editTextCusine2);
 
         seekBarPrice = findViewById(R.id.seekBarPrice);
 
@@ -144,6 +148,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             myRef.orderByChild("email").equalTo(currentUserEmail).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    Log.e("FilterActivity", dataSnapshot.toString());
                     User u = dataSnapshot.getValue(User.class);
                     String key = dataSnapshot.getKey();
 
@@ -151,7 +156,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                     u.glutenfree = switchGFTrue;
                     u.nutfree = switchNFTrue;
                     u.vegan = switchVeganTrue;
-                    u.vegetarian = switchDFTrue;
+                    u.vegetarian = switchVegTrue;
                     u.priceMax = dbPricePercent;
 
                     if(editTextCusine1.getText().toString() != ""){
@@ -188,6 +193,8 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             });
 
             Toast.makeText(this, "User Filters Set", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(FilterActivity.this, LandingActivity.class);
+            startActivity(intent);
         }
     }
 
