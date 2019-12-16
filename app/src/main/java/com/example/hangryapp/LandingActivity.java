@@ -262,7 +262,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 return;
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             final DatabaseReference myRef2 = database.getReference("User");
-
+            Toast.makeText(this, "Added to liked foods!", Toast.LENGTH_SHORT).show();
             myRef2.orderByChild("email").equalTo(currentUser.email).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
