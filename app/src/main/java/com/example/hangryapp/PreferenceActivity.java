@@ -17,6 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PreferenceActivity extends AppCompatActivity  implements View.OnClickListener{
 
@@ -128,7 +130,7 @@ public class PreferenceActivity extends AppCompatActivity  implements View.OnCli
             String userEmail = user.getEmail();
             String password = "password";
 
-            User myUser = new User(userEmail, password, switchVeganUserChecked, switchGlutenFreeUserChecked, switchVegetarianUserChecked, switchDairyFreeUserChecked, switchNutFreeUserChecked, new ArrayList<Meal>(), 100.00, "", "");
+            User myUser = new User(userEmail, password, switchVeganUserChecked, switchGlutenFreeUserChecked, switchVegetarianUserChecked, switchDairyFreeUserChecked, switchNutFreeUserChecked, new HashMap<String, Meal>(), 100.00, "", "");
             myRef.push().setValue(myUser);
 
             Toast.makeText(this, "User Preferences Submitted", Toast.LENGTH_SHORT).show();
